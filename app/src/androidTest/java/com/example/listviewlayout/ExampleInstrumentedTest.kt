@@ -1,4 +1,4 @@
-package com.example.usb_seria_testing
+package com.example.listviewlayout
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.usb_seria_testing", appContext.packageName)
+        assertEquals("com.example.listviewlayout", appContext.packageName)
     }
 }
