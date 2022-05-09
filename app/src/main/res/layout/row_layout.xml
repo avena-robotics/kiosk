@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="productName"
+            type="String" />
+
+        <variable
+            name="productPrice"
+            type="float" />
+
+        <variable
+            name="productNumber"
+            type="int"/>
+
+        <variable
+            name="productSum"
+            type="float"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@{productName}"
+            android:textStyle="bold"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text = '@{"Price: " + Float.toString(productPrice)}'
+            android:paddingLeft="20dp" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(productNumber)}"
+            android:paddingLeft="20dp" />
+
+        <Button
+            android:id="@+id/downButton"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:focusable="false"
+            android:visibility="invisible"
+            android:text="-"
+            android:backgroundTint="@color/button"/>
+
+        <Button
+            android:id="@+id/upButton"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:focusable="false"
+            android:text="+"
+            android:backgroundTint="@color/button"/>
+
+        <TextView
+            android:id="@+id/sum"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text= "@{@string/round(productSum)}"
+            android:paddingLeft="20dp" />
+
+    </LinearLayout>
+</layout>

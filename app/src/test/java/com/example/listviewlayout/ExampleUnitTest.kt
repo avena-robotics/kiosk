@@ -1,4 +1,4 @@
-package com.example.usb_seria_testing
+package com.example.listviewlayout
 
 import org.junit.Test
 
