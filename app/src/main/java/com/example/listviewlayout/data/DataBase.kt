@@ -19,6 +19,7 @@ class DataBase {
 
     fun updateStorage(): MutableList<Int> {
         var output: MutableList<Int> = mutableListOf()
+        var productsInfo: MutableMap<String, Int> = mutableMapOf()
 
         try{
             connection = DriverManager.getConnection("jdbc:mariadb://$dbIp/kiosk?user=$user&password=$password")
@@ -30,15 +31,29 @@ class DataBase {
 
         var stmt: Statement? = null
         var resultset: ResultSet? = null
+        var resultset2: ResultSet? = null
 
         try{
             stmt = connection!!.createStatement()
             resultset = stmt!!.executeQuery("SELECT * FROM storage;")
 
-            println(resultset)
+            resultset2 = stmt!!.executeQuery("SELECT * FROM orders WHERE status not in (4,5)")
 
             while(resultset!!.next()){
                 output.add(resultset.getInt("quantity"))
+                productsInfo[resultset.getString("name")] = 0
+            }
+
+            productsInfo.forEach { (s, i) ->
+                println("Name: $s, value $i")
+            }
+            while(resultset2!!.next()){
+                productsInfo.forEach { (s, i) ->
+                    productsInfo[s] = i + resultset2.getInt(s)
+                }
+            }
+            productsInfo.forEach { (s, i) ->
+                println("Name: $s, value $i")
             }
         } catch (ex: SQLException){
             ex.printStackTrace()
@@ -67,9 +82,11 @@ class DataBase {
                 connection = null
             }
         }
-         output.forEach{
-             println(it)
-         }
+
+        val iter = productsInfo.keys.iterator()
+        for(i in 0 until output.size){
+            output[i] = output[i] - productsInfo[iter.next()]!!
+        }
 
         return output
     }

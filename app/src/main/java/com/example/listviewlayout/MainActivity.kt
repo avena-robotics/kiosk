@@ -38,14 +38,13 @@ class MainActivity : AppCompatActivity() {
     val timer = object: CountDownTimer(60000, 1000){ //60000
         override fun onTick(p0: Long) {
             binding.clock = "${p0/1000}"
-            println("tick $p0")
 
 
             val new_products = dataBase.updateStorage()
 
             for(i in 0 until new_products.size){
                 if(products[i].quantity != new_products[i]){
-                    products[i].quantity = new_products[i]
+                    products[i].quantity = new_products[i] + products[i].number
                 }
             }
 
@@ -102,9 +101,10 @@ class MainActivity : AppCompatActivity() {
                 super.onChanged()
                 sumProducts()
 
-                GlobalScope.launch(Dispatchers.IO){
-                    if(!emergencyFlag){
+                if(!emergencyFlag && !timerCheckFlag){
+                    GlobalScope.launch(Dispatchers.IO){
                         if(noOrderFlag){
+                            println("Timer falg $timerCheckFlag")
                             currentId = dataBase.firstOrder()
                             dataBase.updateOrder(Order(0, products[8].number, products[9].number, products[10].number, products[11].number, products[12].number, products[13].number,
                                 products[14].number, products[15].number, products[16].number, products[2].number, products[3].number, products[4].number, products[5].number, products[6].number,
@@ -115,9 +115,9 @@ class MainActivity : AppCompatActivity() {
                                 products[14].number, products[15].number, products[16].number, products[2].number, products[3].number, products[4].number, products[5].number, products[6].number,
                                 products[7].number, products[17].number, products[18].number, products[1].number, products[0].number, 0), currentId)
                         }
-                    }else{
-                        emergencyFlag = false
                     }
+                }else{
+                    emergencyFlag = false
                 }
 
                 if(!timerCheckFlag){
@@ -190,7 +190,6 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        //timer.start()
                     }
 
                     withContext(Dispatchers.Main){

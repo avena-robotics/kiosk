@@ -47,14 +47,15 @@ class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter
 
         if(mProducts[position].number <= 0){
             binding.downButton.visibility = View.INVISIBLE
-        }else if(mProducts[position].number >= mProducts[position].quantity || mProducts[position].number >= 9){
+        }
+        if(mProducts[position].number >= mProducts[position].quantity || mProducts[position].number >= 9 || mProducts[position].quantity <=0){
             binding.upButton.visibility = View.INVISIBLE
         }
 
 
         binding?.upButton?.setOnClickListener {
             val newProduct = database.updateStorage()
-            mProducts[position].quantity = newProduct[position]
+            mProducts[position].quantity = newProduct[position] + mProducts[position].number
 
             if (mProducts[position].number < mProducts[position].quantity && mProducts[position].number < 9) {
                 mProducts[position].number++
