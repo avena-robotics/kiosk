@@ -48,8 +48,11 @@ class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter
         if(mProducts[position].number <= 0){
             binding.downButton.visibility = View.INVISIBLE
         }
+
         if(mProducts[position].number >= mProducts[position].quantity || mProducts[position].number >= 9 || mProducts[position].quantity <=0){
             binding.upButton.visibility = View.INVISIBLE
+        }else {
+            binding.upButton.visibility = View.VISIBLE
         }
 
 
