@@ -6,9 +6,9 @@ import java.sql.*
 
 class DataBase {
     var connection: Connection? = null
-    val dbIp = "10.3.15.143"
-    val user = "avena"
-    val password = "avena"
+    private val dbIp = "10.3.15.143"
+    private val user = "avena"
+    private val password = "avena"
 
     var products: MutableList<Storage> = mutableListOf()
 
@@ -18,8 +18,8 @@ class DataBase {
     }
 
     fun updateStorage(): MutableList<Int> {
-        var output: MutableList<Int> = mutableListOf()
-        var productsInfo: MutableMap<String, Int> = mutableMapOf()
+        val output: MutableList<Int> = mutableListOf()
+        val productsInfo: MutableMap<String, Int> = mutableMapOf()
 
         try{
             connection = DriverManager.getConnection("jdbc:mariadb://$dbIp/kiosk?user=$user&password=$password")
@@ -36,7 +36,6 @@ class DataBase {
         try{
             stmt = connection!!.createStatement()
             resultset = stmt!!.executeQuery("SELECT * FROM storage;")
-
             resultset2 = stmt!!.executeQuery("SELECT * FROM orders WHERE status not in (4,5)")
 
             while(resultset!!.next()){
@@ -44,16 +43,10 @@ class DataBase {
                 productsInfo[resultset.getString("name")] = 0
             }
 
-            productsInfo.forEach { (s, i) ->
-                println("Name: $s, value $i")
-            }
             while(resultset2!!.next()){
                 productsInfo.forEach { (s, i) ->
                     productsInfo[s] = i + resultset2.getInt(s)
                 }
-            }
-            productsInfo.forEach { (s, i) ->
-                println("Name: $s, value $i")
             }
         } catch (ex: SQLException){
             ex.printStackTrace()
@@ -112,7 +105,6 @@ class DataBase {
             stmt = connection!!.createStatement()
             resultset = stmt!!.executeQuery("SELECT * FROM storage;")
 
-            println(resultset)
 
             while(resultset!!.next()){
                 addProduct(resultset.getString("name"), resultset.getFloat("price"), resultset.getInt("quantity"))
@@ -183,13 +175,6 @@ class DataBase {
                     " status = ${order.status}" +
                     " WHERE id = ${id};"
 
-/*
-            val querry = "INSERT INTO kiosk.orders (type_of_order, product_1, product_2, product_3, product_4, product_5, product_6, product_7, product_8, product_9, " +
-                    "drink_1, drink_2, drink_3, drink_4, drink_5, drink_6, sos_1, sos_2, box, bag, status) VALUES " +
-                    "(${order.type_of_order}, ${order.product_1}, ${order.product_2}, ${order.product_3}, ${order.product_4}, ${order.product_5}, " +
-                    "${order.product_6}, ${order.product_7}, ${order.product_8}, ${order.product_9}, ${order.drink_1}, ${order.drink_2}, ${order.drink_3}, ${order.drink_4}, ${order.drink_5}, " +
-                    "${order.drink_6}, ${order.sos_1}, ${order.sos_2}, ${order.bag}, ${order.box}, ${order.status});"
- */
             stmt = connection!!.createStatement()
             resultset = stmt!!.executeQuery(querry)
 

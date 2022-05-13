@@ -1,11 +1,134 @@
 package com.example.listviewlayout.terminal
 
+import kotlinx.coroutines.delay
 import java.io.*
 import java.net.Socket
 import kotlin.math.roundToInt
 
 class Payment {
-    fun doTransaction(price: Float): Int{
+    suspend fun startTransaction(price: Float) : Int{
+        while(true){
+            if(getPedState() == 0x01){
+                break
+            }else{
+                delay(2000)
+            }
+        }
+
+        return doTransaction(price)
+    }
+
+    private fun getPedState(): Int{
+        val message = pedStateMessage()
+        var state = 0x22
+        var socket = Socket()
+
+        try{
+            socket = Socket("10.3.15.90", 5189)
+        } catch(e: IOException){
+            e.printStackTrace()
+        }
+
+        val dataOutputStream = DataOutputStream(BufferedOutputStream(socket.getOutputStream()))
+        dataOutputStream.write(message)
+        dataOutputStream.flush()
+
+        try{
+            val byte = socket.getInputStream().readBytes()
+            state = printOutState(byte)
+        }catch(e: IOException){
+            e.printStackTrace()
+        }
+
+        return state
+    }
+
+    private fun printOutState(byte: ByteArray):Int{
+        println("HeaderSize ${byte[0].toInt() + byte[1].toInt()*256 + byte[2].toInt()*65536 + byte[3].toInt()*16777216}")
+        println("Protocol Version ${byte[5]}.${byte[4]}")
+        println("0x" + "%02X".format(byte[7].toInt()) + "%02X".format(byte[6].toInt()))
+
+        println("Tag: 0x"+ "%02X".format(byte[11].toInt()) + "%02X".format(byte[10].toInt()) + "%02X".format(byte[9].toInt()) + "%02X".format(byte[8].toInt()))
+        println("Length: ${byte[12].toInt() + byte[13].toInt()*256 + byte[14].toInt()*65536 + byte[15].toInt()*16777216}")
+        println("Value")
+
+        val state = byte[16].toInt()
+
+        when(state){
+            0x00 -> println("State: UNKNOWN (%02X".format(state) + ")")
+            0x01 -> println("State: IDLE (%02X".format(state) + ")")
+            0x02 -> println("State: BUSY (%02X".format(state) + ")")
+            0x03 -> println("State: CARD INSERT (%02X".format(state) + ")")
+            0x04 -> println("State: PIN ENTRY FIRST ATTEMPT (%02X".format(state) + ")")
+            0x05 -> println("State: PIN ENTRY SECOND ATTEMPT (%02X".format(state) + ")")
+            0x06 -> println("State: PIN ENTRY THIRD ATTEMPT (%02X".format(state) + ")")
+            0x07 -> println("State: PIN ENTRY FAILED (%02X".format(state) + ")")
+            0x08 -> println("State: GRATUITY ENTRY (%02X".format(state) + ")")
+            0x09 -> println("State: AUTHORIZING (%02X".format(state) + ")")
+            0x0A -> println("State: COMPLETION (%02X".format(state) + ")")
+            0x0B -> println("State: CANCELLED (%02X".format(state) + ")")
+            0x0C -> println("State: AMOUNT CONFIRMATION (%02X".format(state) + ")")
+            0x0D -> println("State: SENDING (%02X".format(state) + ")")
+            0x0E -> println("State: RECEIVING (%02X".format(state) + ")")
+            0x0F -> println("State: UNSPECIFIED INPUT (%02X".format(state) + ")")
+            0x10 -> println("State: PROCESSING (%02X".format(state) + ")")
+            0x11 -> println("State: CARD REMOVAL (%02X".format(state) + ")")
+            0x12 -> println("State: PRINTING MERCHANT COPY (%02X".format(state) + ")")
+            0x13 -> println("State: PRINTING CUSTOMER COPY (%02X".format(state) + ")")
+            0x14 -> println("State: No More Paper (%02X".format(state) + ")")
+            0x15 -> println("State: Loyalty Option Selection (%02X".format(state) + ")")
+            0x16 -> println("State: Phone Entry (%02X".format(state) + ")")
+            0x17 -> println("State: Promo Code Entry (%02X".format(state) + ")")
+            0x18 -> println("State: Loyalty Member Selection (%02X".format(state) + ")")
+            0x19 -> println("State: Reward Offer (%02X".format(state) + ")")
+            0x1A -> println("State: existing account (%02X".format(state) + ")")
+            0x1B -> println("State: Invalid Account (%02X".format(state) + ")")
+            0x1C -> println("State: Link Card Payment (%02X".format(state) + ")")
+            0x1D -> println("State: Add Card Payment (%02X".format(state) + ")")
+            0x1E -> println("State: Cashback Entry (%02X".format(state) + ")")
+            0x1F -> println("State: Commercial Code Entry (%02X".format(state) + ")")
+            0x20 -> println("State: Waiting Card (%02X".format(state) + ")")
+            0x21 -> println("State: Waiting Dcc Acceptance (%02X".format(state) + ")")
+            else -> {}
+        }
+
+        return state
+    }
+
+
+    private fun pedStateMessage() : ByteArray{
+        val protocolVersion = byteArrayOf(0x00, 0x02)
+        val messageType = byteArrayOf(0x00, 0x1C)
+
+        return byteArrayOf(0x00, 0x00, 0x00, 0x00) + protocolVersion + messageType
+    }
+
+    private fun doTransaction(price: Float): Int{
+        val message = transactionMessage(price)
+        var response = 16
+        var socket = Socket()
+
+        try{
+            socket = Socket("10.3.15.90", 5188)
+        } catch(e: IOException){
+            e.printStackTrace()
+        }
+
+        val dataOutputStream = DataOutputStream(BufferedOutputStream(socket.getOutputStream()))
+        dataOutputStream.write(message)
+        dataOutputStream.flush()
+
+        try{
+            val byte = socket.getInputStream().readBytes()
+            response = printoutResponse(byte)
+        }catch(e: IOException){
+            e.printStackTrace()
+        }
+
+        return response
+    }
+
+    private fun transactionMessage(price: Float): ByteArray {
         val protocolVersion = byteArrayOf(0x00, 0x02)
         val messageType = byteArrayOf(0x00, 0x02)
 
@@ -25,7 +148,7 @@ class Payment {
         val tagEftAmount1LabelFull = tagEftAmount1Label + tagEftAmount1LabelLength + tagEftAmount1LabelValue
 
         val tagEftTransactionType = byteArrayOf(0x09, 0x00, 0x02, 0x00)
-        val tagEftTransactionTypeLength = byteArrayOf(0x02, 0x00, 0x00, 0x00) //12
+        val tagEftTransactionTypeLength = byteArrayOf(0x02, 0x00, 0x00, 0x00) //2
         val tagEftTransactionTypeValue = byteArrayOf(0x30, 0x30) // 0 0
         val tagEftTransactionTypeFull = tagEftTransactionType + tagEftTransactionTypeLength + tagEftTransactionTypeValue
 
@@ -77,7 +200,7 @@ class Payment {
         val tagEftReturnSigReqValue = byteArrayOf(0x86.toByte(), 0x00, 0x02, 0x00)
         val tagEftReturnSigReqValueLength = byteArrayOf(0x01, 0x00, 0x00, 0x00) //1
         val tagEftReturnSigReqValueValue = byteArrayOf(0x01) // 1
-        val tagEftReturnSigReqValueFull = tagEftReturnSigReqValue + tagEftReturnSigReqValueLength +tagEftReturnSigReqValueValue
+        val tagEftReturnSigReqValueFull = tagEftReturnSigReqValue + tagEftReturnSigReqValueLength + tagEftReturnSigReqValueValue
 
         val tagEftEnableEcrBlik = byteArrayOf(0x89.toByte(), 0x00, 0x02, 0x00)
         val tagEftEnableEcrBlikLength = byteArrayOf(0x01, 0x00, 0x00, 0x00) //1
@@ -100,49 +223,16 @@ class Payment {
         val tagEftReturnApmDataFull = tagEftReturnApmData + tagEftReturnApmDataLength + tagEftReturnApmDataValue
 
         val payload = tagEftMessageNumberFull + tagEftAmount1Full + tagEftAmount1LabelFull + tagEftTransactionTypeFull + tagEftAmount2Full + tagEftAmount3Full + tagEftAmount4Full + tagEftAmount2LabelFull +
-                tagEftAmount3LabelFull + tagEftAmount4LabelFull + tagEftCommercialCodeFull + tagEftSuspectedFraudIndicatorFull + tagEftReturnCardRespValueFull + tagEftReturnSigReqValueFull +
-                tagEftEnableEcrBlikFull + tagEftEnableTokenFull + tagEftEnableReturnMarkupTextIndicatorFull + tagEftReturnApmDataFull
+                    tagEftAmount3LabelFull + tagEftAmount4LabelFull + tagEftCommercialCodeFull + tagEftSuspectedFraudIndicatorFull + tagEftReturnCardRespValueFull + tagEftReturnSigReqValueFull +
+                    tagEftEnableEcrBlikFull + tagEftEnableTokenFull + tagEftEnableReturnMarkupTextIndicatorFull + tagEftReturnApmDataFull
 
-        val message = byteArrayOf(payload.size.toByte(), 0x00, 0x00, 0x00) + protocolVersion + messageType + payload
-
-        var response: Int = 16
-
-        System.out.println("message size ${message.size}")
-        var string: String = ""
-        for(i in 0 until message.size){
-            string = string +" %X".format(message[i])
-        }
-        System.out.println(string)
-        var socket: Socket = Socket()
-        var dataInputStream: DataInputStream
-
-        try{
-            socket = Socket("10.3.15.90", 5188)
-        } catch(e: IOException){
-            e.printStackTrace()
-        }
-
-        val dataOutputStream = DataOutputStream(BufferedOutputStream(socket.getOutputStream()))
-
-        dataOutputStream.write(message)
-        dataOutputStream.flush()
-
-        try{
-            val byte = socket.getInputStream().readBytes()
-            response = printoutResponse(byte)
-
-        }catch(e: IOException){
-            e.printStackTrace()
-        }
-
-        return response
+        return byteArrayOf(payload.size.toByte(), 0x00, 0x00, 0x00) + protocolVersion + messageType + payload
     }
 
-    fun priceToAscii(price: Float): ByteArray{
+    private fun priceToAscii(price: Float): ByteArray{
         var outputArray: ByteArray = byteArrayOf()
 
         val newPrice = (price*100.0).roundToInt() / 100.0
-        println("Price: $price, newPrice: $newPrice")
         var new = newPrice.toString()
 
         if(new[new.length-3] != "."[0]){
@@ -152,8 +242,8 @@ class Payment {
         for(i in 0 until 13 - new.length){
             outputArray += byteArrayOf(0x30)
         }
+
         for(i in new.indices){
-            println(new[i])
             when(new[i]){
                 "0"[0] -> outputArray += byteArrayOf(0x30)
                 "1"[0] -> outputArray += byteArrayOf(0x31)
@@ -173,10 +263,11 @@ class Payment {
         for(element in outputArray){
             string+= " %X".format(element)
         }
+
         return outputArray
     }
 
-    fun asciiToInt(byte: Byte): Int{
+    private fun asciiToInt(byte: Byte): Int{
         var output = 10
         when(byte){
             0x30.toByte() -> output = 0
@@ -195,7 +286,7 @@ class Payment {
         return output
     }
 
-    fun printoutResponse(byte: ByteArray): Int{
+    private fun printoutResponse(byte: ByteArray): Int{
         println("HeaderSize ${byte[0].toInt() + byte[1].toInt()*256 + byte[2].toInt()*65536 + byte[3].toInt()*16777216}")
         println("Protocol Version ${byte[5]}.${byte[4]}")
         println("0x" + "%02X".format(byte[7].toInt()) + "%02X".format(byte[6].toInt()))
@@ -214,7 +305,7 @@ class Payment {
             for(j in i+8..(i+7+tagLength)){
                 stringResponse += " %02X".format(byte[j].toInt())
             }
-            println("currentTag ${currentTag} or ${currentTagString}, tagLength ${tagLength} , Value ${stringResponse}")
+            println("currentTag $currentTag or $currentTagString, tagLength $tagLength , Value $stringResponse")
 
             if(currentTag == 131086){
                 if( tagLength == 1){
@@ -223,7 +314,6 @@ class Payment {
                     response = asciiToInt(byte[i+8])*10 + asciiToInt(byte[i+9])
                 }
             }
-
             i += 8+tagLength
         }
 

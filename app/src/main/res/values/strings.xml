@@ -3,4 +3,9 @@
     <string name="round">%.2f</string>
     <string name="pay">PAY</string>
     <string name="cancel">CANCEL</string>
+    <string name="payment_started">Payment Started</string>
+    <string name="look_at_the_payment_terminal_bellow">Look at the payment terminal bellow</string>
+    <string name="total_order_sum">Total Order Sum</string>
+    <string name="exit">Exit</string>
+    <string name="retry">Retry</string>
 </resources>
