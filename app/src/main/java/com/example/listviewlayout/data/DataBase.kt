@@ -105,7 +105,6 @@ class DataBase {
             stmt = connection!!.createStatement()
             resultset = stmt!!.executeQuery("SELECT * FROM storage;")
 
-
             while(resultset!!.next()){
                 addProduct(resultset.getString("name"), resultset.getFloat("price"), resultset.getInt("quantity"))
             }

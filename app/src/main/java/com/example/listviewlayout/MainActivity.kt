@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.StrictMode
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 
 import com.example.listviewlayout.adapter.ItemAdapter
@@ -18,7 +17,7 @@ import com.example.listviewlayout.model.Storage
 import kotlinx.coroutines.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var products: MutableList<Storage>
     lateinit var adapter: ItemAdapter

@@ -4,11 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.listviewlayout.databinding.ActivityStart2Binding
+import com.example.listviewlayout.language.LocaleUtil
 
-class StartActivity : AppCompatActivity() {
+
+class StartActivity : BaseActivity() {
+
+    private fun updateAppLocale(locale: String) {
+        storage.setPreferredLocale(locale)
+        LocaleUtil.applyLocalizedContext(applicationContext, locale)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,6 +30,16 @@ class StartActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             val switchActivityIntent = Intent(this, MainActivity::class.java)
             startActivity(switchActivityIntent)
+        }
+
+        binding.polishFlagButton.setOnClickListener {
+            updateAppLocale("pl")
+            recreate()
+        }
+
+        binding.englishFlagButton.setOnClickListener {
+            updateAppLocale("en")
+            recreate()
         }
 
     }

@@ -1,8 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">ListViewLayout</string>
-    <string name="round" translatable="false">%.2f</string>
-    <string name="pay">PAY</string>
-    <string name="cancel">CANCEL</string>
+    <string name="pay">Zapłać</string>
+    <string name="cancel">Anuluj</string>
     <string name="payment_started">Płatność Rozpoczęta</string>
     <string name="look_at_the_payment_terminal_bellow">Postępuj zgodnie z instrukcjami wyświetlonymi na terminalu poniżej</string>
     <string name="total_order_sum">Kwota do zapłaty</string>
@@ -28,5 +27,5 @@
     <string name="payment_cashback_not_allowed">CashBack nie jest dozwolony</string>
     <string name="payment_incomplete">Niekomplentne</string>
 
-    <string name="test">test_ang</string>
+    <string name="test">test_pol</string>
 </resources>
