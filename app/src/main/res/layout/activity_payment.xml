@@ -18,14 +18,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "@string/total_order_sum"
-            />
+            android:text = "@string/total_order_sum" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "@{@string/round(productTotal)}"
-            />
+            android:text = "@{@string/round(productTotal)}" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,6 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:id = "@+id/support_text"
             android:text = "@string/look_at_the_payment_terminal_bellow"/>
 
@@ -55,6 +54,12 @@
             android:layout_marginTop="30dp"
             android:visibility="invisible"
             android:text = "@string/exit" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/potw"
+            android:text = "@string/system_do_not_return"/>
 
     </LinearLayout>
 </layout>

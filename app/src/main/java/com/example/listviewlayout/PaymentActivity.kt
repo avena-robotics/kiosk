@@ -2,7 +2,6 @@ package com.example.listviewlayout
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
@@ -17,9 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.properties.Delegates
 
-class PaymentActivity : AppCompatActivity() {
+class PaymentActivity : BaseActivity() {
     lateinit var binding: ActivityPaymentBinding
     lateinit var context: Context
     lateinit var products: ArrayList<Int>
@@ -69,7 +67,8 @@ class PaymentActivity : AppCompatActivity() {
             binding.redoButton.visibility = View.INVISIBLE
             binding.backButton.visibility = View.INVISIBLE
             binding.supportText.visibility = View.VISIBLE
-            binding.mainText.text = "Payment Started"
+            binding.mainText.text = getString(R.string.payment_started)
+            binding.potw.visibility = View.VISIBLE
             pay()
         }
 
@@ -90,8 +89,7 @@ class PaymentActivity : AppCompatActivity() {
                     products[14], products[15], products[16], products[2], products[3], products[4], products[5], products[6],
                     products[7], products[17], products[18], products[1], products[0], 2), currentId)
 
-                endString = "Payment Processed"
-
+                endString = getString(R.string.payment_started)
                 withContext(Dispatchers.Main){
                     launch{
                         binding.backButton.visibility = View.VISIBLE
@@ -107,21 +105,21 @@ class PaymentActivity : AppCompatActivity() {
                     products[7], products[17], products[18], products[1], products[0], 5), currentId)
 
                 when(response){
-                    1  -> endString = "Payment Not Authorised"
-                    2  -> endString = "Payment Not Processed"
-                    3  -> endString = "Payment Unable to Authorise"
-                    4  -> endString = "Payment Unable to Process"
-                    5  -> endString = "Payment To Connect"
-                    6  -> endString = "Void"
-                    7  -> endString = "Payment Cancelled"
-                    8  -> endString = "Invalid Password"
-                    9  -> endString = "Amount Exceed Maximum Limit"
-                    10 -> endString = "Connection Failure"
-                    11 -> endString = "Timeout Reached"
-                    12 -> endString = "Invoice Not Found"
-                    13 -> endString = "CashBack Exceed Maximum Limit"
-                    14 -> endString = "CashBack Not Allowed"
-                    15 -> endString = "Incomplete"
+                    1  -> endString = getString(R.string.payment_not_authorised)
+                    2  -> endString = getString(R.string.payment_not_processed)
+                    3  -> endString = getString(R.string.payment_unable_to_authorise)
+                    4  -> endString = getString(R.string.payment_unable_to_process)
+                    5  -> endString = getString(R.string.payment_unable_to_connect)
+                    6  -> endString = getString(R.string.payment_void)
+                    7  -> endString = getString(R.string.payment_cancelled)
+                    8  -> endString = getString(R.string.payment_invalid_password)
+                    9  -> endString = getString(R.string.payment_amount_maximum_limit)
+                    10 -> endString = getString(R.string.payment_connection_failure)
+                    11 -> endString = getString(R.string.payment_timeout_reached)
+                    12 -> endString = getString(R.string.payment_invoice_not_found)
+                    13 -> endString = getString(R.string.payment_cashback_exceed_max)
+                    14 -> endString = getString(R.string.payment_cashback_not_allowed)
+                    15 -> endString = getString(R.string.payment_incomplete)
                     else -> {}
                 }
 
@@ -131,6 +129,7 @@ class PaymentActivity : AppCompatActivity() {
                         binding.supportText.visibility = View.INVISIBLE
                         binding.mainText.text = endString
                         binding.redoButton.visibility = View.VISIBLE
+                        binding.potw.visibility = View.INVISIBLE
                         timer.start()
                     }
                 }

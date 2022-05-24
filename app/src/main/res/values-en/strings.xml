@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pay">Pay</string>
+    <string name="cancel">Cancel</string>
+    <string name="payment_started">Payment Started</string>
+    <string name="look_at_the_payment_terminal_bellow">To Continue Look at the Terminal Bellow</string>
+    <string name="total_order_sum">Total Order Sum</string>
+    <string name="exit">Exit</string>
+    <string name="retry">Retry</string>
+    <string name="system_do_not_return">System do not provide transaction confirmation</string>
+    <string name="payment_accepted">Payment Processed</string>
+    <string name="price">Price: %.2f</string>
+
+    <string name="payment_not_authorised">Payment Not Authorised</string>
+    <string name="payment_not_processed">Payment Not Processed</string>
+    <string name="payment_unable_to_authorise">Payment Unable to Authorised</string>
+    <string name="payment_unable_to_process">Payment Unable to Process</string>
+    <string name="payment_unable_to_connect">Payment Unable to Connect</string>
+    <string name="payment_void">Void</string>
+    <string name="payment_cancelled">Payment Cancelled</string>
+    <string name="payment_invalid_password">Invalid Password</string>
+    <string name="payment_amount_maximum_limit">Amount Exceed Maximum Limit</string>
+    <string name="payment_connection_failure">Connection Failure</string>
+    <string name="payment_timeout_reached">Timeout Reached</string>
+    <string name="payment_invoice_not_found">Invoice Not Found</string>
+    <string name="payment_cashback_exceed_max">CashBack Exceed Maximum Limit</string>
+    <string name="payment_cashback_not_allowed">CashBack Not Allowed</string>
+    <string name="payment_incomplete">Incomplete</string>
+
+    <string name="test">test_en</string>
+</resources>

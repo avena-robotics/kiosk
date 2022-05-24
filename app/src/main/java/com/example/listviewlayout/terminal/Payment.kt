@@ -194,7 +194,7 @@ class Payment {
 
         val tagEftReturnCardRespValue = byteArrayOf(0x7D, 0x00, 0x02, 0x00)
         val tagEftReturnCardRespValueLength = byteArrayOf(0x01, 0x00, 0x00, 0x00) //1
-        val tagEftReturnCardRespValueValue = byteArrayOf(0x01) // 1
+        val tagEftReturnCardRespValueValue = byteArrayOf(0x00) // 1
         val tagEftReturnCardRespValueFull = tagEftReturnCardRespValue + tagEftReturnCardRespValueLength + tagEftReturnCardRespValueValue
 
         val tagEftReturnSigReqValue = byteArrayOf(0x86.toByte(), 0x00, 0x02, 0x00)
@@ -209,24 +209,28 @@ class Payment {
 
         val tagEftEnableToken = byteArrayOf(0x8D.toByte(), 0x00, 0x02, 0x00)
         val tagEftEnableTokenLength = byteArrayOf(0x01, 0x00, 0x00, 0x00) //1
-        val tagEftEnableTokenValue = byteArrayOf(0x01) // 1
+        val tagEftEnableTokenValue = byteArrayOf(0x00) // 1
         val tagEftEnableTokenFull = tagEftEnableToken + tagEftEnableTokenLength + tagEftEnableTokenValue
 
         val tagEftEnableReturnMarkupTextIndicator = byteArrayOf(0x9B.toByte(), 0x00, 0x02, 0x00)
         val tagEftEnableReturnMarkupTextIndicatorLength = byteArrayOf(0x01, 0x00, 0x00, 0x00) //1
-        val tagEftEnableReturnMarkupTextIndicatorValue = byteArrayOf(0x01) // 1
+        val tagEftEnableReturnMarkupTextIndicatorValue = byteArrayOf(0x00) // 1
         val tagEftEnableReturnMarkupTextIndicatorFull = tagEftEnableReturnMarkupTextIndicator + tagEftEnableReturnMarkupTextIndicatorLength + tagEftEnableReturnMarkupTextIndicatorValue
 
         val tagEftReturnApmData = byteArrayOf(0x9D.toByte(), 0x00, 0x02, 0x00)
         val tagEftReturnApmDataLength = byteArrayOf(0x01, 0x00, 0x00, 0x00) //1
-        val tagEftReturnApmDataValue = byteArrayOf(0x01) // 1
+        val tagEftReturnApmDataValue = byteArrayOf(0x00) // 1
         val tagEftReturnApmDataFull = tagEftReturnApmData + tagEftReturnApmDataLength + tagEftReturnApmDataValue
 
         val payload = tagEftMessageNumberFull + tagEftAmount1Full + tagEftAmount1LabelFull + tagEftTransactionTypeFull + tagEftAmount2Full + tagEftAmount3Full + tagEftAmount4Full + tagEftAmount2LabelFull +
-                    tagEftAmount3LabelFull + tagEftAmount4LabelFull + tagEftCommercialCodeFull + tagEftSuspectedFraudIndicatorFull + tagEftReturnCardRespValueFull + tagEftReturnSigReqValueFull +
+                tagEftAmount3LabelFull + tagEftAmount4LabelFull + tagEftCommercialCodeFull + tagEftSuspectedFraudIndicatorFull + tagEftReturnCardRespValueFull + tagEftReturnSigReqValueFull +
                     tagEftEnableEcrBlikFull + tagEftEnableTokenFull + tagEftEnableReturnMarkupTextIndicatorFull + tagEftReturnApmDataFull
 
-        return byteArrayOf(payload.size.toByte(), 0x00, 0x00, 0x00) + protocolVersion + messageType + payload
+        val header = byteArrayOf(payload.size.toByte(), 0x00, 0x00, 0x00)
+        val output = header + protocolVersion + messageType + payload
+
+        printoutResponse(output)
+        return output
     }
 
     private fun priceToAscii(price: Float): ByteArray{
@@ -287,7 +291,11 @@ class Payment {
     }
 
     private fun printoutResponse(byte: ByteArray): Int{
-        println("HeaderSize ${byte[0].toInt() + byte[1].toInt()*256 + byte[2].toInt()*65536 + byte[3].toInt()*16777216}")
+        println()
+        println("New TLV Message")
+        println()
+
+        println("HeaderSize ${fromByteToInt(byte[0]) + fromByteToInt(byte[1])*256 + fromByteToInt(byte[2])*65536 + fromByteToInt(byte[3])*16777216}")
         println("Protocol Version ${byte[5]}.${byte[4]}")
         println("0x" + "%02X".format(byte[7].toInt()) + "%02X".format(byte[6].toInt()))
 
@@ -305,7 +313,7 @@ class Payment {
             for(j in i+8..(i+7+tagLength)){
                 stringResponse += " %02X".format(byte[j].toInt())
             }
-            println("currentTag $currentTag or $currentTagString, tagLength $tagLength , Value $stringResponse")
+            println("currentTag $currentTagString, tagLength $tagLength , Value $stringResponse")
 
             if(currentTag == 131086){
                 if( tagLength == 1){
@@ -318,5 +326,40 @@ class Payment {
         }
 
         return response
+    }
+
+    fun fromByteToInt(byte: Byte): Int {
+        val output: Int
+
+        val string = "%02X".format(byte)
+
+        output = fromHex(string[0])* 16 + fromHex(string[1])
+
+        return output
+    }
+
+    fun fromHex(input: Char): Int{
+        val output: Int
+        when(input){
+            "0"[0] -> output = 0
+            "1"[0] -> output = 1
+            "2"[0] -> output = 2
+            "3"[0] -> output = 3
+            "4"[0] -> output = 4
+            "5"[0] -> output = 5
+            "6"[0] -> output = 6
+            "7"[0] -> output = 7
+            "8"[0] -> output = 8
+            "9"[0] -> output = 9
+            "A"[0] -> output = 10
+            "B"[0] -> output = 11
+            "C"[0] -> output = 12
+            "D"[0] -> output = 13
+            "E"[0] -> output = 14
+            "F"[0] -> output = 15
+            else -> output = 0
+        }
+
+        return output
     }
 }

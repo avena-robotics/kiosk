@@ -8,10 +8,6 @@
             type="float" />
 
         <variable
-            name="payFeedback"
-            type="String" />
-
-        <variable
             name="clock"
             type="String" />
     </data>
@@ -29,11 +25,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="480dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/banner"
-                android:paddingTop="10dp"
+                android:src="@drawable/logo"
                 android:paddingBottom="10dp" />
 
             <TextView
