@@ -24,6 +24,8 @@ class MainActivity : BaseActivity() {
     lateinit var context: Context
     lateinit var dataBase: DataBase
 
+    val order = Order(0 , 0, 0, 0, 0,0 ,0 ,0, 0, 0, 0, 0,0 ,0 ,0, 0, 0, 0,0, 0, 0)
+
     var total: Float = 0.0F
     var currentId: Int = 0
 
@@ -34,7 +36,14 @@ class MainActivity : BaseActivity() {
         override fun onTick(p0: Long) {
             binding.clock = "${p0/1000}"
 
-            val newProducts = dataBase.updateStorage()
+            var newProducts: MutableList<Int> = mutableListOf()
+            runBlocking {
+                launch(Dispatchers.IO){
+                    newProducts = dataBase.updateStorage()
+                }
+
+            }
+
 
             for(i in 0 until newProducts.size){
                 if(products[i].quantity != newProducts[i]){
@@ -49,9 +58,12 @@ class MainActivity : BaseActivity() {
 
         override fun onFinish() {
             if(!noOrderFlag){
-                dataBase.updateOrder(Order(0, products[8].number, products[9].number, products[10].number, products[11].number, products[12].number, products[13].number,
-                    products[14].number, products[15].number, products[16].number, products[2].number, products[3].number, products[4].number, products[5].number, products[6].number,
-                    products[7].number, products[17].number, products[18].number, products[1].number, products[0].number, 5), currentId)
+                updateOrder()
+                order.status = 5
+                GlobalScope.launch(Dispatchers.IO){
+                    dataBase.updateOrder(order, currentId)
+                }
+
             }
 
             val switchActivityIntent = Intent(context, StartActivity::class.java)
@@ -61,6 +73,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        println("Main create 1")
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.productTotal = 0.0F
@@ -71,18 +84,20 @@ class MainActivity : BaseActivity() {
             it.hide(WindowInsets.Type.systemBars())
         }
 
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-
 
         dataBase = DataBase()
         currentId = 0
+
+        println("Main create 2")
 
         runBlocking {
             launch(Dispatchers.IO){
                 products = dataBase.storageImport()
             }
         }
+
+        println("Main create 3")
+
 
         noOrderFlag = true
 
@@ -97,14 +112,14 @@ class MainActivity : BaseActivity() {
                     GlobalScope.launch(Dispatchers.IO){
                         if(noOrderFlag){
                             currentId = dataBase.firstOrder()
-                            dataBase.updateOrder(Order(0, products[8].number, products[9].number, products[10].number, products[11].number, products[12].number, products[13].number,
-                                products[14].number, products[15].number, products[16].number, products[2].number, products[3].number, products[4].number, products[5].number, products[6].number,
-                                products[7].number, products[17].number, products[18].number, products[1].number, products[0].number, 0), currentId)
+                            updateOrder()
+                            order.status = 0
+                            dataBase.updateOrder(order, currentId)
                             noOrderFlag = false
                         }else{
-                            dataBase.updateOrder(Order(0, products[8].number, products[9].number, products[10].number, products[11].number, products[12].number, products[13].number,
-                                products[14].number, products[15].number, products[16].number, products[2].number, products[3].number, products[4].number, products[5].number, products[6].number,
-                                products[7].number, products[17].number, products[18].number, products[1].number, products[0].number, 0), currentId)
+                            order.status = 0
+                            updateOrder()
+                            dataBase.updateOrder(order, currentId)
                         }
                     }
                 }
@@ -121,9 +136,28 @@ class MainActivity : BaseActivity() {
                 timer.cancel()
                 val switchToPaymentIntent = Intent(this, PaymentActivity::class.java)
                 var productsNumbers = ArrayList<Int>(products.size)
-                products.forEach{
-                    productsNumbers.add(it.number)
-                }
+                updateOrder()
+
+                productsNumbers.add(order.product_1)
+                productsNumbers.add(order.product_2)
+                productsNumbers.add(order.product_3)
+                productsNumbers.add(order.product_4)
+                productsNumbers.add(order.product_5)
+                productsNumbers.add(order.product_6)
+                productsNumbers.add(order.product_7)
+                productsNumbers.add(order.product_8)
+                productsNumbers.add(order.product_9)
+                productsNumbers.add(order.drink_1)
+                productsNumbers.add(order.drink_2)
+                productsNumbers.add(order.drink_3)
+                productsNumbers.add(order.drink_4)
+                productsNumbers.add(order.drink_5)
+                productsNumbers.add(order.drink_6)
+                productsNumbers.add(order.sos_1)
+                productsNumbers.add(order.sos_2)
+                productsNumbers.add(order.box)
+                productsNumbers.add(order.bag)
+
 
                 switchToPaymentIntent.putExtra("products", productsNumbers)
                 switchToPaymentIntent.putExtra("productsTotal", binding.productTotal)
@@ -135,9 +169,11 @@ class MainActivity : BaseActivity() {
 
         binding.cancelButton.setOnClickListener {
             if(!noOrderFlag){
-                dataBase.updateOrder(Order(0, products[8].number, products[9].number, products[10].number, products[11].number, products[12].number, products[13].number,
-                    products[14].number, products[15].number, products[16].number, products[2].number, products[3].number, products[4].number, products[5].number, products[6].number,
-                    products[7].number, products[17].number, products[18].number, products[1].number, products[0].number, 5), currentId)
+                order.status = 5
+                updateOrder()
+                GlobalScope.launch(Dispatchers.IO) {
+                    dataBase.updateOrder(order, currentId)
+                }
             }
 
             timer.cancel()
@@ -155,5 +191,31 @@ class MainActivity : BaseActivity() {
             total += products[i].price * products[i].number
         }
         binding.productTotal = total
+    }
+
+    fun updateOrder(){
+        products.forEach{
+            when(it.name_en){
+                "product_1" -> order.product_1 = it.number
+                "product_2" -> order.product_2 = it.number
+                "product_3" -> order.product_3 = it.number
+                "product_4" -> order.product_4 = it.number
+                "product_5" -> order.product_5 = it.number
+                "product_6" -> order.product_6 = it.number
+                "product_7" -> order.product_7 = it.number
+                "product_8" -> order.product_8 = it.number
+                "product_9" -> order.product_9 = it.number
+                "drink_1" -> order.drink_1 = it.number
+                "drink_2" -> order.drink_2 = it.number
+                "drink_3" -> order.drink_3 = it.number
+                "drink_4" -> order.drink_4 = it.number
+                "drink_5" -> order.drink_5 = it.number
+                "drink_6" -> order.drink_6 = it.number
+                "sauce_1" -> order.sos_1 = it.number
+                "sauce_2" -> order.sos_2 = it.number
+                "box" -> order.box = it.number
+                "bag" -> order.bag = it.number
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ class PaymentActivity : BaseActivity() {
     lateinit var binding: ActivityPaymentBinding
     lateinit var context: Context
     lateinit var products: ArrayList<Int>
+    lateinit var order: Order
 
     val payment = Payment()
     val dataBase = DataBase()
@@ -54,6 +55,9 @@ class PaymentActivity : BaseActivity() {
         currentId = intent.getIntExtra("currentId", 0)
         total = intent.getFloatExtra("productsTotal", 0.0F)
 
+        order = Order(0, products[0], products[1], products[2], products[3], products[4],
+            products[5], products[6], products[7], products[8], products[9], products[10], products[11],
+            products[12], products[13], products[14], products[15], products[16], products[17], products[18], 0)
         binding.productTotal = total
 
         binding.backButton.setOnClickListener {
@@ -77,17 +81,15 @@ class PaymentActivity : BaseActivity() {
 
     fun pay(){
         GlobalScope.launch(Dispatchers.IO) {
-            dataBase.updateOrder(Order(0, products[8], products[9], products[10], products[11], products[12], products[13],
-                products[14], products[15], products[16], products[2], products[3], products[4], products[5], products[6],
-                products[7], products[17], products[18], products[1], products[0], 1), currentId)
+            order.status = 1
+            dataBase.updateOrder(order, currentId)
 
             val response = payment.startTransaction(total)
 
             if( response == 0){ //Authorised
                 println("payment good")
-                dataBase.updateOrder(Order(0, products[8], products[9], products[10], products[11], products[12], products[13],
-                    products[14], products[15], products[16], products[2], products[3], products[4], products[5], products[6],
-                    products[7], products[17], products[18], products[1], products[0], 2), currentId)
+                order.status = 2
+                dataBase.updateOrder(order, currentId)
 
                 endString = getString(R.string.payment_started)
                 withContext(Dispatchers.Main){
@@ -100,9 +102,8 @@ class PaymentActivity : BaseActivity() {
                 }
             } else { //Cancelled
                 println("payment Cancelled")
-                dataBase.updateOrder(Order(0, products[8], products[9], products[10], products[11], products[12], products[13],
-                    products[14], products[15], products[16], products[2], products[3], products[4], products[5], products[6],
-                    products[7], products[17], products[18], products[1], products[0], 5), currentId)
+                order.status = 5
+                dataBase.updateOrder(order, currentId)
 
                 when(response){
                     1  -> endString = getString(R.string.payment_not_authorised)

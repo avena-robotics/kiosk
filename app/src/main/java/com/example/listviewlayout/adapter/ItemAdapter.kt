@@ -1,6 +1,7 @@
 package com.example.listviewlayout.adapter
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,11 @@ import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
 import com.example.listviewlayout.data.DataBase
 import com.example.listviewlayout.databinding.RowLayoutBinding
+import com.example.listviewlayout.language.LangStorage
 import com.example.listviewlayout.model.Storage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter() {
     private val mContext: Context = context
@@ -39,11 +44,20 @@ class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter
                 viewGroup,
                 false)
 
+        if(LangStorage(mContext).getPreferredLocale() == "pl"){
+            binding?.productName = mProducts[position].name_pl
+        }else if(LangStorage(mContext).getPreferredLocale() == "en"){
+            binding?.productName = mProducts[position].name_en
+        }else{
+            binding?.productName = mProducts[position].name_en
+        }
 
-        binding?.productName = mProducts[position].name
+
         binding?.productPrice = mProducts[position].price
         binding?.productNumber = mProducts[position].number
         binding?.productSum = binding?.productPrice!! * binding.productNumber
+        binding?.image.setImageBitmap(mProducts[position].image)
+
 
         if(mProducts[position].number <= 0){
             binding.downButton.visibility = View.INVISIBLE
@@ -57,8 +71,12 @@ class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter
 
 
         binding?.upButton?.setOnClickListener {
-            val newProduct = database.updateStorage()
-            mProducts[position].quantity = newProduct[position] + mProducts[position].number
+            runBlocking {
+                launch(Dispatchers.IO) {
+                    val newProduct = database.updateStorage()
+                    mProducts[position].quantity = newProduct[position] + mProducts[position].number
+                }
+            }
 
             if (mProducts[position].number < mProducts[position].quantity && mProducts[position].number < 9) {
                 mProducts[position].number++
@@ -69,6 +87,7 @@ class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter
                 notifyDataSetChanged()
             }
         }
+
 
 
         binding?.downButton?.setOnClickListener {
