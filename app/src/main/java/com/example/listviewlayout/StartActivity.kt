@@ -1,6 +1,7 @@
 package com.example.listviewlayout
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -18,6 +19,7 @@ class StartActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        println("onCreate")
 
         val binding: ActivityStart2Binding = DataBindingUtil.setContentView(this, R.layout.activity_start2)
 
@@ -26,6 +28,12 @@ class StartActivity : BaseActivity() {
             window.navigationBarColor = getColor(com.google.android.material.R.color.mtrl_btn_transparent_bg_color)
             it.hide(WindowInsets.Type.systemBars())
         }
+
+        binding.video.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pizza))
+        binding.video.setOnPreparedListener {
+            it.isLooping = true
+        }
+        binding.video.start()
 
         binding.button.setOnClickListener {
             val switchActivityIntent = Intent(this, MainActivity::class.java)
@@ -41,6 +49,5 @@ class StartActivity : BaseActivity() {
             updateAppLocale("en")
             recreate()
         }
-
     }
 }
