@@ -35,7 +35,14 @@ class StartActivity : BaseActivity() {
         }
         binding.video.start()
 
-        binding.button.setOnClickListener {
+        binding.video.setOnClickListener {
+            //binding.video.stopPlayback()
+            val switchActivityIntent = Intent(this, MainActivity::class.java)
+            startActivity(switchActivityIntent)
+        }
+
+        binding.text.setOnClickListener {
+            //binding.video.stopPlayback()
             val switchActivityIntent = Intent(this, MainActivity::class.java)
             startActivity(switchActivityIntent)
         }

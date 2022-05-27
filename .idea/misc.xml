@@ -4,9 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21" />
-        <entry key="app/src/main/res/layout/activity_payment.xml" value="0.48411214953271026" />
+        <entry key="app/src/main/res/layout/activity_payment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_start.xml" value="0.29257246376811596" />
         <entry key="app/src/main/res/layout/activity_start2.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/card_view.xml" value="0.67" />
         <entry key="app/src/main/res/layout/content_start.xml" value="0.29257246376811596" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.29257246376811596" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.29257246376811596" />

@@ -10,6 +10,7 @@
     <string name="system_do_not_return">System nie wydaje potwierdzeń płatności</string>
     <string name="payment_accepted">Płatność zaakceptowana</string>
     <string name="price">Cena: %.2f</string>
+    <string name="press">Przyciśnij Ekran aby zamówić</string>
 
     <string name="payment_not_authorised">Płatność nie została zaakceptowana</string>
     <string name="payment_not_processed">Płatność nie została przetworzona</string>
@@ -26,6 +27,30 @@
     <string name="payment_cashback_exceed_max">Przekroczenie limitu CashBack-u</string>
     <string name="payment_cashback_not_allowed">CashBack nie jest dozwolony</string>
     <string name="payment_incomplete">Niekomplentne</string>
+    <string name="name_info">Imię użyte do twojego zamówienia</string>
+    <string name="name_change_info">Przyciśnij aby zmienić imię wykorzystywane w zamówieniu</string>
 
     <string name="test">test_pol</string>
+
+    <string name="name_first_1">a</string>
+    <string name="name_first_2">b</string>
+    <string name="name_first_3">c</string>
+    <string name="name_first_4">d</string>
+    <string name="name_first_5">e</string>
+    <string name="name_first_6">f</string>
+    <string name="name_first_7">g</string>
+    <string name="name_first_8">h</string>
+    <string name="name_first_9">i</string>
+    <string name="name_first_10">j</string>
+
+    <string name="name_seccond_1">k</string>
+    <string name="name_seccond_2">l</string>
+    <string name="name_seccond_3">m</string>
+    <string name="name_seccond_4">n</string>
+    <string name="name_seccond_5">o</string>
+    <string name="name_seccond_6">p</string>
+    <string name="name_seccond_7">q</string>
+    <string name="name_seccond_8">r</string>
+    <string name="name_seccond_9">s</string>
+    <string name="name_seccond_10">t</string>
 </resources>
