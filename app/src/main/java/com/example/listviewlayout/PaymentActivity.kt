@@ -54,6 +54,7 @@ class PaymentActivity : BaseActivity() {
         products = intent.getIntegerArrayListExtra("products")!!
         currentId = intent.getIntExtra("currentId", 0)
         total = intent.getFloatExtra("productsTotal", 0.0F)
+        binding.clientName = intent.getStringExtra("clientName")
 
         order = Order(0, products[0], products[1], products[2], products[3], products[4],
             products[5], products[6], products[7], products[8], products[9], products[10], products[11],

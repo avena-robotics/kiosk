@@ -34,7 +34,7 @@
                 android:layout_width = "wrap_content"
                 android:layout_height = "wrap_content"
                 android:layout_gravity = "center"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:text = "@{clock}"
                 android:width = "20dp"/>
 
@@ -55,28 +55,45 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp">
 
+            <TextView
+                android:layout_width="150dp"
+                android:layout_marginEnd="5dp"
+                android:layout_height="wrap_content"
+                android:text="@string/name_change_info"/>
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/munchies_blue"
+                android:layout_gravity="center"
+                android:layout_marginEnd="50dp"
+                android:id="@+id/popupButton"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cancel"
                 android:id = "@+id/cancelButton"
-                android:backgroundTint="@color/button"/>
+                android:layout_gravity="center"
+                android:backgroundTint="@color/munchies_red"/>
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:text = "@{@string/round(productTotal)}"
+                android:layout_gravity="center"
                 android:textAlignment="center"
                 android:id = "@+id/total"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center"
                 android:text="@string/pay"
                 android:id = "@+id/payButton"
-                android:backgroundTint="@color/button"/>
+                android:backgroundTint="@color/munchies_red"/>
 
         </LinearLayout>
     </LinearLayout>

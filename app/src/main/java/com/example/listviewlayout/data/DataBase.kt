@@ -271,6 +271,54 @@ class DataBase {
         }
         return id
     }
+
+    fun setClientName(name: String, id: Int) {
+        try{
+            connection = DriverManager.getConnection(connectionURL)
+        }catch(ex: SQLException){
+            ex.printStackTrace()
+        }catch(ex: Exception){
+            ex.printStackTrace()
+        }
+
+        var stmt: Statement? = null
+        var resultset: ResultSet? = null
+
+        try{
+            val querry = "UPDATE robot_system.orders SET client_name = '$name' WHERE id = ${id};"
+
+            stmt = connection!!.createStatement()
+            resultset = stmt!!.executeQuery(querry)
+
+
+        } catch (ex: SQLException){
+            ex.printStackTrace()
+        } finally {
+            if (resultset != null) {
+                try {
+                    resultset.close()
+                } catch (sqlEx: SQLException) {
+                }
+                resultset = null
+            }
+
+            if (stmt != null) {
+                try {
+                    stmt.close()
+                } catch (sqlEx: SQLException) {
+                }
+                stmt = null
+            }
+
+            if (connection != null) {
+                try {
+                    connection!!.close()
+                } catch (sqlEx: SQLException) {
+                }
+                connection = null
+            }
+        }
+    }
 }
 
 
