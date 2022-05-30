@@ -28,29 +28,33 @@
     <string name="payment_cashback_not_allowed">CashBack Not Allowed</string>
     <string name="payment_incomplete">Incomplete</string>
     <string name="name_info">Name used for your order</string>
-    <string name="name_change_info">Press to change name used in order</string>
 
     <string name="test">test_en</string>
 
-    <string name="name_first_1">a</string>
-    <string name="name_first_2">b</string>
-    <string name="name_first_3">c</string>
-    <string name="name_first_4">d</string>
-    <string name="name_first_5">e</string>
-    <string name="name_first_6">f</string>
-    <string name="name_first_7">g</string>
-    <string name="name_first_8">h</string>
-    <string name="name_first_9">i</string>
-    <string name="name_first_10">j</string>
+    <string name="name_first_1">A</string>
+    <string name="name_first_2">B</string>
+    <string name="name_first_3">C</string>
+    <string name="name_first_4">D</string>
+    <string name="name_first_5">E</string>
+    <string name="name_first_6">F</string>
+    <string name="name_first_7">G</string>
+    <string name="name_first_8">H</string>
+    <string name="name_first_9">I</string>
+    <string name="name_first_10">J</string>
 
-    <string name="name_seccond_1">k</string>
-    <string name="name_seccond_2">l</string>
-    <string name="name_seccond_3">m</string>
-    <string name="name_seccond_4">n</string>
-    <string name="name_seccond_5">o</string>
-    <string name="name_seccond_6">p</string>
-    <string name="name_seccond_7">q</string>
-    <string name="name_seccond_8">r</string>
-    <string name="name_seccond_9">s</string>
-    <string name="name_seccond_10">t</string>
+    <string name="name_seccond_1">K</string>
+    <string name="name_seccond_2">L</string>
+    <string name="name_seccond_3">M</string>
+    <string name="name_seccond_4">N</string>
+    <string name="name_seccond_5">O</string>
+    <string name="name_seccond_6">P</string>
+    <string name="name_seccond_7">Q</string>
+    <string name="name_seccond_8">R</string>
+    <string name="name_seccond_9">S</string>
+    <string name="name_seccond_10">T</string>
+
+    <string name="confirm_payment">Confirm Payment</string>
+    <string name="change_name">Change Name</string>
+    <string name="popup_change">Change</string>
+    <string name="popup_cancel">Cancel</string>
 </resources>

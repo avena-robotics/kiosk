@@ -36,6 +36,14 @@
             android:shadowColor="@color/black"
             android:layout_marginBottom="100dp"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/munchies_blue"
+            android:text="@string/change_name"
+            android:id = "@+id/change_name"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,11 +54,20 @@
             android:layout_height="wrap_content"
             android:text = "@{@string/round(productTotal)}" />
 
+        <Button
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:backgroundTint = "@color/munchies_red"
+            android:text = "@string/confirm_payment"
+            android:layout_marginTop="10dp"
+            android:id="@+id/start_button"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id = "@+id/main_text"
             android:text = "@string/payment_started"
+            android:visibility="invisible"
             android:layout_marginTop="50dp"/>
 
         <TextView
@@ -58,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:id = "@+id/support_text"
+            android:visibility="invisible"
             android:text = "@string/look_at_the_payment_terminal_bellow"/>
 
         <Button
