@@ -8,6 +8,7 @@ import android.view.WindowInsetsController
 import androidx.databinding.DataBindingUtil
 import com.example.listviewlayout.databinding.ActivityStart2Binding
 import com.example.listviewlayout.language.LocaleUtil
+import kotlin.math.sqrt
 
 
 class StartActivity : BaseActivity() {
@@ -56,5 +57,8 @@ class StartActivity : BaseActivity() {
             updateAppLocale("en")
             recreate()
         }
+
+        val den = sqrt((1080.0*1080.0) + (1920*19020))/23.8
+        println("Density ${den}")
     }
 }

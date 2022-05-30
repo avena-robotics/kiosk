@@ -46,10 +46,10 @@
 
                 <Button
                     android:id="@+id/confirmButton"
-                    android:layout_width="50dp"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:backgroundTint="@color/munchies_red"
-                    android:text="Y"
+                    android:text="@string/popup_change"
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -60,10 +60,10 @@
 
                 <Button
                     android:id="@+id/declineButton"
-                    android:layout_width="50dp"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:backgroundTint="@color/munchies_red"
-                    android:text="X"
+                    android:text="@string/popup_cancel"
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

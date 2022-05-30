@@ -47,9 +47,7 @@ class MainActivity : BaseActivity() {
                 launch(Dispatchers.IO){
                     newProducts = dataBase.updateStorage()
                 }
-
             }
-
 
             for(i in 0 until newProducts.size){
                 if(products[i].quantity != newProducts[i]){
@@ -69,15 +67,12 @@ class MainActivity : BaseActivity() {
                 GlobalScope.launch(Dispatchers.IO){
                     dataBase.updateOrder(order, currentId)
                 }
-
             }
 
             val switchActivityIntent = Intent(context, StartActivity::class.java)
             startActivity(switchActivityIntent)
         }
     }
-
-    lateinit var popupWindow: PopupWindow
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +87,6 @@ class MainActivity : BaseActivity() {
             it.hide(WindowInsets.Type.systemBars())
         }
 
-
         dataBase = DataBase()
         currentId = 0
 
@@ -103,9 +97,7 @@ class MainActivity : BaseActivity() {
                 products = dataBase.storageImport()
             }
         }
-
         println("Main create 3")
-
 
         noOrderFlag = true
 
@@ -166,17 +158,9 @@ class MainActivity : BaseActivity() {
                 productsNumbers.add(order.box)
                 productsNumbers.add(order.bag)
 
-                runBlocking {
-                    launch(Dispatchers.IO){
-                        dataBase.setClientName(binding.popupButton.text.toString(), currentId)
-                    }
-                }
-
                 switchToPaymentIntent.putExtra("products", productsNumbers)
                 switchToPaymentIntent.putExtra("productsTotal", binding.productTotal)
                 switchToPaymentIntent.putExtra("currentId", currentId)
-                println(binding.popupButton.text)
-                switchToPaymentIntent.putExtra("clientName", binding.popupButton.text.toString())
 
                 startActivity(switchToPaymentIntent)
             }
@@ -195,79 +179,6 @@ class MainActivity : BaseActivity() {
             val switchActivityIntent = Intent(context, StartActivity::class.java)
             startActivity(switchActivityIntent)
         }
-
-        binding.popupButton.setOnClickListener {
-            timer.cancel()
-            timer.start()
-            val inflater: LayoutInflater = context.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val popUpBinding = CardViewBinding.inflate(inflater)
-
-            popupWindow = PopupWindow(popUpBinding.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
-
-            popupWindow.isFocusable = true
-            popupWindow.update()
-
-            popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
-
-            popUpBinding.confirmButton.setOnClickListener {
-                timer.cancel()
-                timer.start()
-                if(popUpBinding.editText.text.isNotEmpty()){
-                    binding.popupButton.text = popUpBinding.editText.text
-                }
-                popupWindow.dismiss()
-            }
-
-            popUpBinding.declineButton.setOnClickListener {
-                timer.cancel()
-                timer.start()
-                popupWindow.dismiss()
-            }
-
-            popUpBinding.editText.requestFocus()
-
-            GlobalScope.launch {
-                while(true){
-                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-
-                    if(imm.showSoftInput(popUpBinding.editText, InputMethodManager.SHOW_IMPLICIT)){
-                        println("break")
-                        break
-                    }else{
-                        println("delay")
-                        delay(10)
-                    }
-                }
-
-            }
-            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(popUpBinding.editText, InputMethodManager.SHOW_IMPLICIT)
-
-
-            popUpBinding.editText.addTextChangedListener {
-                timer.cancel()
-                timer.start()
-            }
-
-            popUpBinding.editText.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
-                if(id == EditorInfo.IME_ACTION_DONE) {
-                    timer.cancel()
-                    timer.start()
-                    if(popUpBinding.editText.text.isNotEmpty()){
-                        binding.popupButton.text = popUpBinding.editText.text
-                    }
-                    popupWindow.dismiss()
-
-                    return@OnEditorActionListener true
-                }
-                false
-            })
-
-        }
-
-
-        //binding.popupButton.text = getString(R.string.name_first_10) + " " + getString(R.string.name_seccond_10)
-        binding.popupButton.text = generateFirstName()
 
         context = this
         timer.start()
@@ -305,9 +216,5 @@ class MainActivity : BaseActivity() {
                 "bag" -> order.bag = it.number
             }
         }
-    }
-
-    fun generateFirstName(): String{
-        return getString(resources.getIdentifier("name_first_${Random.nextInt(1,10)}", "string", packageName)) + " " + getString(resources.getIdentifier("name_seccond_${Random.nextInt(1,10)}", "string", packageName))
     }
 }
