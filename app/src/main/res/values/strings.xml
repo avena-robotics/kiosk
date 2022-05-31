@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">ListViewLayout</string>
+    <string name="app_name" translatable="false">Kiosk</string>
     <string name="round" translatable="false">%.2f</string>
     <string name="pay">PAY</string>
     <string name="cancel">CANCEL</string>
