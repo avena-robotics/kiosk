@@ -40,7 +40,7 @@ class PaymentFragment : Fragment() {
         }
 
         override fun onFinish() {
-            model.resetProducts()
+            model.cancelOrder()
             timerFlag = 1
             try{
                 popupWindow.dismiss()
@@ -65,7 +65,6 @@ class PaymentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var nameGenFlag = 0
 
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
@@ -74,7 +73,7 @@ class PaymentFragment : Fragment() {
         if(model.clientName.value == ""){
             binding.clientName = generateFirstName()
             model.clientName.value = binding.clientName
-            nameGenFlag = 1
+            model.nameGenFlag.value = true
         }else{
             binding.clientName = model.clientName.value
         }
@@ -117,7 +116,7 @@ class PaymentFragment : Fragment() {
                 }
             }
 
-            if(nameGenFlag == 0){
+            if(model.nameGenFlag.value == false){
                 popUpBinding.editText.setText(binding.clientName)
             }
 
@@ -127,7 +126,7 @@ class PaymentFragment : Fragment() {
                 if(popUpBinding.editText.text.isNotEmpty()){
                     binding.clientName = popUpBinding.editText.text.toString()
                     model.clientName.value = binding.clientName
-                    nameGenFlag = 0
+                    model.nameGenFlag.value = false
                 }
                 popupWindow.dismiss()
             }
@@ -164,7 +163,7 @@ class PaymentFragment : Fragment() {
                     if(popUpBinding.editText.text.isNotEmpty()){
                         binding.clientName = popUpBinding.editText.text.toString()
                         model.clientName.value = binding.clientName
-                        nameGenFlag = 0
+                        model.nameGenFlag.value = false
                     }
                     popupWindow.dismiss()
 
@@ -266,7 +265,6 @@ class PaymentFragment : Fragment() {
                     binding.potw.visibility = View.INVISIBLE
                     timer.start()
                 }
-
             }
         }
     }

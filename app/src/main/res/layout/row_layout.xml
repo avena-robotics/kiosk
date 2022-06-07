@@ -43,7 +43,7 @@
 
         <TextView
             android:id="@+id/price"
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:text = "@{@string/price(productPrice)}"
             android:paddingLeft="20dp" />

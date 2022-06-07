@@ -6,6 +6,7 @@ import com.example.kiosk.model.Order
 import com.example.kiosk.model.Storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 class SharedViewModel: ViewModel() {
@@ -17,6 +18,7 @@ class SharedViewModel: ViewModel() {
         0 ,0))
     val total: MutableLiveData<Float> = MutableLiveData()
     val clientName: MutableLiveData<String> = MutableLiveData()
+    val nameGenFlag: MutableLiveData<Boolean> = MutableLiveData()
 
     var flag = 0
     val database = DataBase()
@@ -32,6 +34,18 @@ class SharedViewModel: ViewModel() {
             }
             clientName.value = ""
         }
+    }
+
+    fun cancelOrder(){
+        runBlocking {
+            launch(Dispatchers.IO) {
+                updateOrder()
+                order.value?.status = 5
+                println("in current id ${currentId.value}")
+                database.updateOrder(order.value!! ,currentId.value!!)
+            }
+        }
+        resetProducts()
     }
 
     fun orderChange(status: Int){
@@ -79,11 +93,13 @@ class SharedViewModel: ViewModel() {
     }
 
     fun resetProducts(){
+        println("pre res current id ${currentId.value}")
         products.value?.forEach{
             it.number = 0
         }
         currentId.value = 0
         clientName.value = ""
+        println("post res current id ${currentId.value}")
     }
 
     fun updateStorage(){
