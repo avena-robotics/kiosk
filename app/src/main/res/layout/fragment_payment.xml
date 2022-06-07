@@ -17,128 +17,211 @@
         android:layout_height="match_parent"
         tools:context=".PaymentFragment">
 
-        <TextView
-            android:id="@+id/name_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name_info"
-            android:layout_marginTop="250dp"
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="480dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/name_info"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/name_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/client_name_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text = "@{clientName}"
-            android:textSize = "40sp"
-            android:textStyle = "bold"
-            android:textAllCaps="true"
-            android:textColor="@color/munchies_blue"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp"
+            android:shadowColor="@color/black"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"
-            android:shadowColor="@color/black"
-            android:layout_marginBottom="100dp"
-            android:id="@+id/client_name_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name_info"/>
+            android:text="@{clientName}"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/munchies_blue"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@+id/change_name"
+            app:layout_constraintStart_toEndOf="@+id/name_info"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/change_name"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="24dp"
             android:backgroundTint="@color/munchies_blue"
             android:text="@string/change_name"
-            android:id = "@+id/change_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/client_name_view"/>
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text = "@string/total_order_sum"
-            android:id = "@+id/sum_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/change_name"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text = "@{@string/round(productTotal)}"
-            android:id = "@+id/product_total"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/price_card"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="28dp"
+            android:backgroundTint="@color/munchies_blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sum_text"/>
+            app:layout_constraintTop_toBottomOf="@+id/client_name_view">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/sum_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/total_order_sum"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.505"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/product_total_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@{@string/round(productTotal)}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
 
         <Button
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
+            android:layout_width = "200dp"
+            android:layout_height = "60dp"
             android:backgroundTint = "@color/munchies_red"
             android:text = "@string/confirm_payment"
             android:layout_marginTop="10dp"
             android:id="@+id/start_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/product_total"/>
+            app:layout_constraintTop_toBottomOf="@id/price_card"/>
 
         <TextView
+            android:id="@+id/main_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id = "@+id/main_text"
-            android:text = "@string/payment_started"
+            android:layout_marginTop="24dp"
+            android:text="@string/payment_started"
             android:visibility="invisible"
-            android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/start_button"/>
+            app:layout_constraintTop_toBottomOf="@id/start_button" />
 
         <TextView
+            android:id="@+id/support_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:id = "@+id/support_text"
+            android:text="@string/look_at_the_payment_terminal_bellow"
             android:visibility="invisible"
-            android:text = "@string/look_at_the_payment_terminal_bellow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_text"/>
+            app:layout_constraintTop_toBottomOf="@id/main_text" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/redo_button"
-            android:layout_marginTop="30dp"
-            android:visibility="invisible"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
             android:backgroundTint="@color/munchies_red"
-            android:text = "@string/retry"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/retry"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@id/back_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/support_text"/>
+            app:layout_constraintTop_toBottomOf="@id/support_text" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/back_button"
-            android:layout_marginTop="30dp"
-            android:visibility="invisible"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
             android:backgroundTint="@color/munchies_red"
-            android:text = "@string/exit"
+            android:text="@string/exit"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/redo_button"/>
+            app:layout_constraintHorizontal_bias="0.444"
+            app:layout_constraintStart_toEndOf="@+id/redo_button"
+            app:layout_constraintTop_toBottomOf="@+id/support_text" />
 
         <TextView
+            android:id="@+id/potw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id = "@+id/potw"
-            android:text = "@string/system_do_not_return"
+            android:layout_marginTop="28dp"
+            android:text="@string/system_do_not_return"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.519"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back_button" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/divider"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/potw" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/order_summary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/back_button"/>
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/edit_order"
+            android:id="@+id/edit_button"
+            android:backgroundTint="@color/munchies_blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:id="@+id/product_list"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

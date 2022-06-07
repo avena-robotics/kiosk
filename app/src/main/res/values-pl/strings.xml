@@ -34,7 +34,7 @@
     <string name="name_first_1">A</string>
     <string name="name_first_2">B</string>
     <string name="name_first_3">C</string>
-    <string name="name_first_4">D</string>
+    <string name="name_first_4">Śnieżny</string>
     <string name="name_first_5">E</string>
     <string name="name_first_6">F</string>
     <string name="name_first_7">G</string>
@@ -50,10 +50,15 @@
     <string name="name_seccond_6">P</string>
     <string name="name_seccond_7">Q</string>
     <string name="name_seccond_8">R</string>
-    <string name="name_seccond_9">S</string>
+    <string name="name_seccond_9">Koczkodan</string>
     <string name="name_seccond_10">T</string>
-    <string name="confirm_payment">Potwierdź płatność</string>
+
+    <string name="confirm_payment">Rozpocznij Płatność</string>
     <string name="change_name">Zmień Imie</string>
-    <string name="popup_change">Zmień</string>
+    <string name="popup_change">Zatwierdź</string>
     <string name="popup_cancel">Anuluj</string>
+    <string name="edit_order">Edytuj zamówienie</string>
+    <string name="order_summary">Podsumowanie zamówienia</string>
+
+    <string name="end_goal">Po odbór zamówienia podejdź do ...</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +34,7 @@ class OrderFragment : Fragment() {
                 model.orderChange(5)
             }
             model.resetProducts()
+            println("Nav: Payment: Order to start timer")
             binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
         }
 
@@ -44,6 +46,8 @@ class OrderFragment : Fragment() {
             timerCheckFlag = true
             adapter.notifyDataSetChanged()
             timerCheckFlag = false
+
+            //println("Order tick $p0")
         }
     }
 
@@ -63,9 +67,16 @@ class OrderFragment : Fragment() {
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         products = model.products
 
+        noOrderFlag = model.currentId.value == 0
 
         adapter = ItemAdapter(this.requireContext(), products.value!!)
         binding.list.adapter = adapter
+
+        binding.list.setOnItemClickListener { adapterView, view, i, l ->
+            timer.cancel()
+            timer.start()
+            println("list item click ${adapterView.count}, $i, $l, $view")
+        }
 
         binding.list.adapter.registerDataSetObserver(object: DataSetObserver() {
             override fun onChanged() {
@@ -92,6 +103,7 @@ class OrderFragment : Fragment() {
             }
             model.resetProducts()
             timer.cancel()
+            println("Nav: Payment: Order To Start cancel button")
             binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
         }
 
@@ -99,6 +111,7 @@ class OrderFragment : Fragment() {
             if(!noOrderFlag && binding.productTotal > 0){
                 timer.cancel()
                 model.total.value = binding.productTotal
+                println("Nav: Payment: Order to Payment pay button")
                 binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToPaymentFragment())
             }
         }

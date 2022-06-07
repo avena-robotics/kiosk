@@ -11,7 +11,6 @@ class MyApp: Application() {
     }
 
     override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(LocaleUtil.getLocalizedContext(base, LangStorage(
-            base).getPreferredLocale()))
+        super.attachBaseContext(LocaleUtil.getLocalizedContext(base, LangStorage(base).getPreferredLocale()))
     }
 }

@@ -287,6 +287,7 @@ class DataBase {
         try{
             val querry = "UPDATE robot_system.orders SET client_name = '$name' WHERE id = ${id};"
 
+
             stmt = connection!!.createStatement()
             resultset = stmt!!.executeQuery(querry)
 

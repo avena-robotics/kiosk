@@ -10,8 +10,12 @@ import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.example.kiosk.data.DataBase
 import com.example.kiosk.databinding.FragmentStartBinding
 import com.example.kiosk.language.LocaleUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class StartFragment : Fragment() {
     lateinit var binding: FragmentStartBinding
@@ -38,13 +42,13 @@ class StartFragment : Fragment() {
         }
         binding.video.start()
 
-
-
         binding.video.setOnClickListener {
+            println("Nav: Payment: Start To Order Video click")
             view.findNavController().navigate(StartFragmentDirections.actionStartFragmentToOrderFragment())
         }
 
         binding.text.setOnClickListener {
+            println("Nav: Payment: Start To Order text click")
             view.findNavController().navigate(StartFragmentDirections.actionStartFragmentToOrderFragment())
         }
 
