@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import com.example.kiosk.adapter.ItemAdapter
 import com.example.kiosk.databinding.FragmentOrderBinding
 import com.example.kiosk.model.Storage
+import kotlinx.coroutines.runBlocking
 
 class OrderFragment : Fragment() {
     lateinit var binding: FragmentOrderBinding
@@ -31,9 +32,11 @@ class OrderFragment : Fragment() {
     val timer = object: CountDownTimer( 60000, 1000){
         override fun onFinish() {
             if(!noOrderFlag){
-                model.orderChange(5)
+                model.cancelOrder()
+            }else{
+                model.resetProducts()
             }
-            model.resetProducts()
+
             println("Nav: Payment: Order to start timer")
             binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
         }
@@ -99,9 +102,10 @@ class OrderFragment : Fragment() {
 
         binding.cancelButton.setOnClickListener {
             if(!noOrderFlag){
-                model.orderChange(5)
+                model.cancelOrder()
+            }else{
+                model.resetProducts()
             }
-            model.resetProducts()
             timer.cancel()
             println("Nav: Payment: Order To Start cancel button")
             binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())

@@ -9,7 +9,7 @@
     <string name="retry">Retry</string>
     <string name="system_do_not_return">System do not provide transaction confirmation</string>
     <string name="payment_accepted">Payment Processed</string>
-    <string name="price">Price: %.2f</string>
+    <string name="price">Price: %.2f zł</string>
     <string name="press">Press Screen to Order</string>
 
     <string name="payment_not_authorised">Payment Not Authorised</string>

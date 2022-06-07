@@ -9,7 +9,7 @@
     <string name="retry">Spróbuj Ponownie</string>
     <string name="system_do_not_return">System nie wydaje potwierdzeń płatności</string>
     <string name="payment_accepted">Płatność zaakceptowana</string>
-    <string name="price">Cena: %.2f</string>
+    <string name="price">Cena: %.2f zł</string>
     <string name="press">Przyciśnij Ekran aby zamówić</string>
 
     <string name="payment_not_authorised">Płatność nie została zaakceptowana</string>
