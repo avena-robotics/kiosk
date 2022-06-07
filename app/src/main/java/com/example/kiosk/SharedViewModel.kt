@@ -16,6 +16,7 @@ class SharedViewModel: ViewModel() {
         0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,
         0 ,0))
     val total: MutableLiveData<Float> = MutableLiveData()
+    val clientName: MutableLiveData<String> = MutableLiveData()
 
     var flag = 0
     val database = DataBase()
@@ -29,6 +30,7 @@ class SharedViewModel: ViewModel() {
                     products.value = temp
                 }
             }
+            clientName.value = ""
         }
     }
 
@@ -79,8 +81,9 @@ class SharedViewModel: ViewModel() {
     fun resetProducts(){
         products.value?.forEach{
             it.number = 0
-            currentId.value = 0
         }
+        currentId.value = 0
+        clientName.value = ""
     }
 
     fun updateStorage(){
@@ -93,11 +96,14 @@ class SharedViewModel: ViewModel() {
                     }
                 }
             }
-
         }
     }
 
+    fun setClientName(){
+        viewModelScope.launch(Dispatchers.IO) {
+            database.setClientName(clientName.value!!, currentId.value!!)
+        }
 
-
+    }
 
 }

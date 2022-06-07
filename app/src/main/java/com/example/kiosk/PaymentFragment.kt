@@ -17,9 +17,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kiosk.adapter.SumListAdapter
 import com.example.kiosk.data.DataBase
 import com.example.kiosk.databinding.CardViewBinding
 import com.example.kiosk.databinding.FragmentPaymentBinding
+import com.example.kiosk.model.Storage
 import com.example.kiosk.terminal.Payment
 import kotlinx.coroutines.*
 import kotlin.random.Random
@@ -29,15 +32,23 @@ class PaymentFragment : Fragment() {
     lateinit var popupWindow: PopupWindow
     lateinit var model: SharedViewModel
 
-    val dataBase = DataBase()
-
+    var timerFlag = 0
 
     val timer = object: CountDownTimer(60000, 1000){ //60000
         override fun onTick(p0: Long) {
+            println("Payment tick $p0")
         }
 
         override fun onFinish() {
             model.resetProducts()
+            timerFlag = 1
+            try{
+                popupWindow.dismiss()
+            } catch (e: Exception){
+                e.printStackTrace()
+            }
+            timerFlag = 0
+            println("Nav: Payment to start timer")
             binding.root.findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToStartFragment())
         }
     }
@@ -54,19 +65,28 @@ class PaymentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var nameGenFlag = 0
 
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
-        binding.clientName = generateFirstName()
+        binding.productTotal = model.total.value!!
+
+        if(model.clientName.value == ""){
+            binding.clientName = generateFirstName()
+            model.clientName.value = binding.clientName
+            nameGenFlag = 1
+        }else{
+            binding.clientName = model.clientName.value
+        }
 
         binding.backButton.setOnClickListener {
             timer.cancel()
             model.resetProducts()
+            println("Nav: Payment to start back button")
             binding.root.findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToStartFragment())
         }
 
         binding.redoButton.setOnClickListener {
-            timer.cancel()
             binding.redoButton.visibility = View.INVISIBLE
             binding.backButton.visibility = View.INVISIBLE
             binding.supportText.visibility = View.VISIBLE
@@ -76,6 +96,9 @@ class PaymentFragment : Fragment() {
         }
 
         binding.changeName.setOnClickListener {
+            timer.cancel()
+            timer.start()
+
             val inflater: LayoutInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val popUpBinding = CardViewBinding.inflate(inflater)
 
@@ -86,11 +109,25 @@ class PaymentFragment : Fragment() {
 
             popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
 
+            popupWindow.setOnDismissListener {
+                println("dismiss")
+                if(timerFlag == 0){
+                    timer.cancel()
+                    timer.start()
+                }
+            }
+
+            if(nameGenFlag == 0){
+                popUpBinding.editText.setText(binding.clientName)
+            }
+
             popUpBinding.confirmButton.setOnClickListener {
                 timer.cancel()
                 timer.start()
                 if(popUpBinding.editText.text.isNotEmpty()){
                     binding.clientName = popUpBinding.editText.text.toString()
+                    model.clientName.value = binding.clientName
+                    nameGenFlag = 0
                 }
                 popupWindow.dismiss()
             }
@@ -108,18 +145,12 @@ class PaymentFragment : Fragment() {
                     val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
                     if(imm.showSoftInput(popUpBinding.editText, InputMethodManager.SHOW_IMPLICIT)){
-                        println("break")
                         break
                     }else{
-                        println("delay")
                         delay(10)
                     }
                 }
-
             }
-            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(popUpBinding.editText, InputMethodManager.SHOW_IMPLICIT)
-
 
             popUpBinding.editText.addTextChangedListener {
                 timer.cancel()
@@ -132,6 +163,8 @@ class PaymentFragment : Fragment() {
                     timer.start()
                     if(popUpBinding.editText.text.isNotEmpty()){
                         binding.clientName = popUpBinding.editText.text.toString()
+                        model.clientName.value = binding.clientName
+                        nameGenFlag = 0
                     }
                     popupWindow.dismiss()
 
@@ -142,20 +175,35 @@ class PaymentFragment : Fragment() {
         }
 
         binding.startButton.setOnClickListener {
-            runBlocking {
-                launch(Dispatchers.IO){
-                    dataBase.setClientName(binding.clientName.toString(), model.currentId.value!!)
-                }
-            }
+            model.setClientName()
 
             binding.startButton.visibility = View.INVISIBLE
             binding.changeName.visibility = View.INVISIBLE
+            binding.editButton.visibility = View.INVISIBLE
             binding.mainText.visibility = View.VISIBLE
             binding.supportText.visibility = View.VISIBLE
 
             pay()
+
         }
 
+        val products = mutableListOf<Storage>()
+
+        for(i in 0 until model.products.value!!.size){
+            if(model.products.value!![i].number != 0){
+                products.add(model.products.value!![i])
+            }
+        }
+
+        binding.productList.layoutManager = LinearLayoutManager(context)
+        binding.productList.adapter = SumListAdapter(requireContext(), products)
+
+        binding.editButton.setOnClickListener {
+            timer.cancel()
+            binding.root.findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToOrderFragment())
+        }
+
+        timer.start()
     }
 
     fun pay(){
@@ -165,6 +213,7 @@ class PaymentFragment : Fragment() {
             var response: Int = -1
 
             model.orderChange(1)
+            timer.cancel()
 
             withContext(Dispatchers.IO){
                 launch{
@@ -176,11 +225,15 @@ class PaymentFragment : Fragment() {
                 println("payment good")
                 model.orderChange(2)
 
-            endString = getString(R.string.payment_started)
-            binding.backButton.visibility = View.VISIBLE
-            binding.supportText.visibility = View.INVISIBLE
-            binding.mainText.text = endString
-            timer.start()
+                endString = getString(R.string.payment_accepted)
+
+                withContext(Dispatchers.Main){
+                    binding.backButton.visibility = View.VISIBLE
+                    binding.supportText.visibility = View.VISIBLE
+                    binding.supportText.text = getString(R.string.end_goal)
+                    binding.mainText.text = endString
+                    timer.start()
+                }
 
             } else { //Cancelled
                 println("payment Cancelled")
@@ -217,7 +270,6 @@ class PaymentFragment : Fragment() {
             }
         }
     }
-
 
     fun generateFirstName(): String{
         return getString(resources.getIdentifier("name_first_${Random.nextInt(1,10)}", "string", BuildConfig.APPLICATION_ID )) + " " + getString(resources.getIdentifier("name_seccond_${Random.nextInt(1,10)}", "string", BuildConfig.APPLICATION_ID ))

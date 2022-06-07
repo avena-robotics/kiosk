@@ -69,17 +69,5 @@ class LocaleUtil {
         private fun getLocaleFromConfiguration(configuration: Configuration): Locale {
             return configuration.locales.get(0)
         }
-
-        fun getLocalizedResources(resources: Resources, prefLocaleCode: String): Resources {
-            val locale = getLocaleFromPrefCode(prefLocaleCode)
-            val config = resources.configuration
-            @Suppress("DEPRECATION")
-            config.locale = locale
-            config.setLayoutDirection(locale)
-
-            @Suppress("DEPRECATION")
-            resources.updateConfiguration(config, resources.displayMetrics)
-            return resources
-        }
     }
 }

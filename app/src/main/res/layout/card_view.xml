@@ -46,7 +46,7 @@
 
                 <Button
                     android:id="@+id/confirmButton"
-                    android:layout_width="100dp"
+                    android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:backgroundTint="@color/munchies_red"
                     android:text="@string/popup_change"
@@ -60,7 +60,7 @@
 
                 <Button
                     android:id="@+id/declineButton"
-                    android:layout_width="100dp"
+                    android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:backgroundTint="@color/munchies_red"
                     android:text="@string/popup_cancel"

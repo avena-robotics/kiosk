@@ -51,7 +51,6 @@ class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter
             binding?.productName = mProducts[position].name_en
         }
 
-
         binding?.productPrice = mProducts[position].price
         binding?.productNumber = mProducts[position].number
         binding?.productSum = binding?.productPrice!! * binding.productNumber
@@ -67,8 +66,15 @@ class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter
             binding.upButton.visibility = View.VISIBLE
         }
 
+        if(mProducts[position].number > 0){
+            binding.downButton.visibility = View.VISIBLE
+        }else{
+            binding.downButton.visibility = View.INVISIBLE
+        }
+
 
         binding.upButton.setOnClickListener {
+            println("click")
             runBlocking {
                 launch(Dispatchers.IO) {
                     val newProduct = database.updateStorage()
@@ -86,7 +92,10 @@ class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter
             }
         }
 
-
+        binding.upButton.setOnLongClickListener {
+            println("long")
+            binding.upButton.performClick()
+        }
 
         binding.downButton.setOnClickListener {
             if (mProducts[position].number > 0) {
@@ -97,6 +106,10 @@ class ItemAdapter(context: Context, products: MutableList<Storage>): BaseAdapter
 
                 notifyDataSetChanged()
             }
+        }
+
+        binding.downButton.setOnLongClickListener {
+            binding.downButton.performClick()
         }
 
         return binding.root

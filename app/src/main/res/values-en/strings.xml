@@ -53,8 +53,12 @@
     <string name="name_seccond_9">S</string>
     <string name="name_seccond_10">T</string>
 
-    <string name="confirm_payment">Confirm Payment</string>
+    <string name="confirm_payment">Start Payment</string>
     <string name="change_name">Change Name</string>
-    <string name="popup_change">Change</string>
+    <string name="popup_change">Confirm</string>
     <string name="popup_cancel">Cancel</string>
+    <string name="edit_order">Edit Order</string>
+    <string name="order_summary">Order Summary</string>
+
+    <string name="end_goal">To receive Order go to ...</string>
 </resources>
