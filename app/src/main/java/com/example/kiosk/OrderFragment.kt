@@ -120,6 +120,11 @@ class OrderFragment : Fragment() {
             }
         }
 
+        binding.imageView.setOnClickListener {
+            timer.cancel()
+            view.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToAdminFragment())
+        }
+
         timer.start()
         println("4")
     }

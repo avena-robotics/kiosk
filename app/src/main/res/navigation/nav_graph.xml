@@ -37,5 +37,16 @@
         <action
             android:id="@+id/action_orderFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_orderFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.example.kiosk.AdminFragment"
+        android:label="AdminFragment" >
+        <action
+            android:id="@+id/action_adminFragment_to_startFragment"
+            app:destination="@id/startFragment" />
     </fragment>
 </navigation>

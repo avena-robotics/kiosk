@@ -16,6 +16,7 @@ import com.example.kiosk.language.LocaleUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.NullPointerException
 
 class StartFragment : Fragment() {
     lateinit var binding: FragmentStartBinding
@@ -36,6 +37,7 @@ class StartFragment : Fragment() {
         model.productsInit()
 
 
+        //binding.video.rotation = 180f
         binding.video.setVideoURI(Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/" + R.raw.pizza))
         binding.video.setOnPreparedListener {
             it.isLooping = true
