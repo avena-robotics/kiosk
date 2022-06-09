@@ -6,6 +6,7 @@ import com.example.kiosk.language.LangStorage
 import com.example.kiosk.language.LocaleUtil
 
 class MyApp: Application() {
+
     val storage: LangStorage by lazy{
         LangStorage(this)
     }

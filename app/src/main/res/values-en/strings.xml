@@ -61,4 +61,6 @@
     <string name="order_summary">Order Summary</string>
 
     <string name="end_goal">To receive Order go to ...</string>
+
+    <string name="cancel_payment">Cancel Payment</string>
 </resources>

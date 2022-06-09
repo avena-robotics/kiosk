@@ -202,6 +202,12 @@ class PaymentFragment : Fragment() {
             binding.root.findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToOrderFragment())
         }
 
+        binding.cancelButton.setOnClickListener {
+            timer.cancel()
+            model.cancelOrder()
+            binding.root.findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToStartFragment())
+        }
+
         timer.start()
     }
 

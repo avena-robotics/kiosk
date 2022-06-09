@@ -61,4 +61,6 @@
     <string name="order_summary">Podsumowanie zamówienia</string>
 
     <string name="end_goal">Po odbór zamówienia podejdź do ...</string>
+
+    <string name="cancel_payment">Anuluj Zamówienie</string>
 </resources>
