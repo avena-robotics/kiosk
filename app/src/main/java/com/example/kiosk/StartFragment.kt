@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.kiosk.data.DataBase
 import com.example.kiosk.databinding.FragmentStartBinding
+import com.example.kiosk.language.LangStorage
 import com.example.kiosk.language.LocaleUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -55,11 +56,15 @@ class StartFragment : Fragment() {
         }
 
         binding.polishFlagButton.setOnClickListener {
-            (activity as MainActivity).updateAppLocale("pl")
+            if(LangStorage(requireContext()).getPreferredLocale() != "pl"){
+                (activity as MainActivity).updateAppLocale("pl")
+            }
         }
 
         binding.englishFlagButton.setOnClickListener {
-            (activity as MainActivity).updateAppLocale("en")
+            if(LangStorage(requireContext()).getPreferredLocale() != "en"){
+                (activity as MainActivity).updateAppLocale("en")
+            }
         }
     }
 

@@ -19,6 +19,7 @@ class SharedViewModel: ViewModel() {
     val total: MutableLiveData<Float> = MutableLiveData()
     val clientName: MutableLiveData<String> = MutableLiveData()
     val nameGenFlag: MutableLiveData<Boolean> = MutableLiveData()
+    val changeFlag: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var flag = 0
     val database = DataBase()
@@ -69,7 +70,7 @@ class SharedViewModel: ViewModel() {
     fun updateOrder(){
         products.value?.forEach{
             when(it.name_en){
-                "product_1" -> order.value?.product_1 = it.number
+                "product_1" -> order.value?.product_1 = it.number;
                 "product_2" -> order.value?.product_2 = it.number
                 "product_3" -> order.value?.product_3 = it.number
                 "product_4" -> order.value?.product_4 = it.number
@@ -105,12 +106,15 @@ class SharedViewModel: ViewModel() {
     fun updateStorage(){
         viewModelScope.launch(Dispatchers.IO){
             val temp = database.updateStorage()
+            var flagStorChange = false
             withContext(Dispatchers.Main){
                 for(i in 0 until temp.size){
                     if(products.value!![i].quantity != temp[i]){
                         products.value!![i].quantity  = temp[i] + products.value!![i].number
+                        flagStorChange = true
                     }
                 }
+                changeFlag.value = flagStorChange
             }
         }
     }
