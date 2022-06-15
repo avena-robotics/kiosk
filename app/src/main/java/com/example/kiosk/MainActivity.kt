@@ -1,5 +1,6 @@
 package com.example.kiosk
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
@@ -18,7 +19,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        Thread.setDefaultUncaughtExceptionHandler(UnCaughtExceptionHandler(this))
+        val defaultUEH: Thread.UncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler() as Thread.UncaughtExceptionHandler
+        Thread.setDefaultUncaughtExceptionHandler(UnCaughtExceptionHandler(this, defaultUEH))
 
         window.insetsController?.let {
             it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
@@ -29,5 +31,11 @@ class MainActivity : BaseActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
+
+        println(applicationContext.packageName)
+        val packages = packageManager.getInstalledPackages(0)
+        for(i in packages){
+            println(i.packageName)
+        }
     }
 }

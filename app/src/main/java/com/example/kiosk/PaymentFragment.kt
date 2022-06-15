@@ -179,6 +179,7 @@ class PaymentFragment : Fragment() {
             binding.startButton.visibility = View.INVISIBLE
             binding.changeName.visibility = View.INVISIBLE
             binding.editButton.visibility = View.INVISIBLE
+            binding.cancelButton.visibility = View.INVISIBLE
             binding.mainText.visibility = View.VISIBLE
             binding.supportText.visibility = View.VISIBLE
 

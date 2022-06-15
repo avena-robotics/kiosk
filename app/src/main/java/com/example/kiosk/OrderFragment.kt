@@ -5,14 +5,21 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.AdapterListUpdateCallback
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kiosk.adapter.ItemAdapter
+import com.example.kiosk.adapter.ProductAdapter
+import com.example.kiosk.adapter.SumListAdapter
 import com.example.kiosk.databinding.FragmentOrderBinding
 import com.example.kiosk.model.Storage
 import kotlinx.coroutines.runBlocking
@@ -23,7 +30,7 @@ class OrderFragment : Fragment() {
 
     var total: Float = 0.0F
     lateinit var products: LiveData<MutableList<Storage>>
-    lateinit var adapter: ItemAdapter
+    lateinit var adapter: ProductAdapter
 
     var timerCheckFlag = false
     var noOrderFlag = true
@@ -46,9 +53,13 @@ class OrderFragment : Fragment() {
 
             model.updateStorage()
 
-            timerCheckFlag = true
-            adapter.notifyDataSetChanged()
-            timerCheckFlag = false
+
+            if(model.changeFlag.value!!){
+                timerCheckFlag = true
+                adapter.notifyDataSetChanged()
+                timerCheckFlag = false
+            }
+
 
             //println("Order tick $p0")
         }
@@ -72,9 +83,38 @@ class OrderFragment : Fragment() {
 
         noOrderFlag = model.currentId.value == 0
 
-        adapter = ItemAdapter(this.requireContext(), products.value!!)
-        binding.list.adapter = adapter
+        adapter = ProductAdapter(this.requireContext(), products.value!!)
 
+        adapter.setHasStableIds(true)
+        //adapter = ItemAdapter(this.requireContext(), products.value!!)
+        binding.list.adapter = adapter
+        binding.list.layoutManager = object: LinearLayoutManager(context){
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+
+        }
+
+        adapter.registerAdapterDataObserver(object: RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                sumProducts()
+                if(!timerCheckFlag){
+
+                    if(noOrderFlag){
+                        model.firstOrder()
+                        noOrderFlag = false
+                    }else{
+                        model.orderChange(0)
+                    }
+
+                    timer.cancel()
+                    timer.start()
+                }
+            }
+        })
+
+        /*
         binding.list.setOnItemClickListener { adapterView, view, i, l ->
             timer.cancel()
             timer.start()
@@ -99,7 +139,7 @@ class OrderFragment : Fragment() {
                 }
             }
         })
-
+         */
         binding.cancelButton.setOnClickListener {
             if(!noOrderFlag){
                 model.cancelOrder()
