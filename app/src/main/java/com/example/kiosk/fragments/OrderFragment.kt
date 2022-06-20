@@ -1,28 +1,22 @@
-package com.example.kiosk
+package com.example.kiosk.fragments
 
-import android.database.DataSetObserver
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kiosk.adapter.ItemAdapter
+import com.example.kiosk.R
+import com.example.kiosk.viewmodels.SharedViewModel
 import com.example.kiosk.adapter.ProductAdapter
-import com.example.kiosk.adapter.SumListAdapter
 import com.example.kiosk.databinding.FragmentOrderBinding
 import com.example.kiosk.model.Storage
-import kotlinx.coroutines.runBlocking
 
 class OrderFragment : Fragment() {
     lateinit var binding: FragmentOrderBinding

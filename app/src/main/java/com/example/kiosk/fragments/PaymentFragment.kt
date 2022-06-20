@@ -1,4 +1,4 @@
-package com.example.kiosk
+package com.example.kiosk.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -12,14 +12,15 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.PopupWindow
 import android.widget.TextView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kiosk.BuildConfig
+import com.example.kiosk.R
+import com.example.kiosk.viewmodels.SharedViewModel
 import com.example.kiosk.adapter.SumListAdapter
-import com.example.kiosk.data.DataBase
 import com.example.kiosk.databinding.CardViewBinding
 import com.example.kiosk.databinding.FragmentPaymentBinding
 import com.example.kiosk.model.Storage
@@ -277,6 +278,8 @@ class PaymentFragment : Fragment() {
     }
 
     fun generateFirstName(): String{
-        return getString(resources.getIdentifier("name_first_${Random.nextInt(1,10)}", "string", BuildConfig.APPLICATION_ID )) + " " + getString(resources.getIdentifier("name_seccond_${Random.nextInt(1,10)}", "string", BuildConfig.APPLICATION_ID ))
+        return getString(resources.getIdentifier("name_first_${Random.nextInt(1,10)}", "string",
+            BuildConfig.APPLICATION_ID)) + " " + getString(resources.getIdentifier("name_seccond_${Random.nextInt(1,10)}", "string",
+            BuildConfig.APPLICATION_ID))
     }
 }

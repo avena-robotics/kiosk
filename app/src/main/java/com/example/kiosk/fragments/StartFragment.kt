@@ -1,4 +1,4 @@
-package com.example.kiosk
+package com.example.kiosk.fragments
 
 import android.net.Uri
 import android.os.Bundle
@@ -6,18 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.example.kiosk.data.DataBase
+import com.example.kiosk.BuildConfig
+import com.example.kiosk.MainActivity
+import com.example.kiosk.R
+import com.example.kiosk.viewmodels.SharedViewModel
 import com.example.kiosk.databinding.FragmentStartBinding
 import com.example.kiosk.language.LangStorage
-import com.example.kiosk.language.LocaleUtil
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.lang.NullPointerException
 
 class StartFragment : Fragment() {
     lateinit var binding: FragmentStartBinding
