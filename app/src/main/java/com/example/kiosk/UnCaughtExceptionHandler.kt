@@ -3,6 +3,7 @@ package com.example.kiosk
 import android.app.Activity
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import kotlin.system.exitProcess
@@ -25,13 +26,15 @@ class UnCaughtExceptionHandler(var activity: Activity, val defaultUEH: Thread.Un
         android.os.Process.killProcess(android.os.Process.myPid())
 
          */
-        val intent = Intent(activity, FallbackActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(activity.baseContext, 192837, intent, PendingIntent.FLAG_ONE_SHOT)
+        val intent = Intent(activity, MainActivity::class.java)
+        activity.startActivity(intent)
 
-        val alarmManager: AlarmManager = activity.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 15000, pendingIntent)
-        //System.exit(2)
+        //val pendingIntent = PendingIntent.getActivity(activity.baseContext, 192837, intent, PendingIntent.FLAG_ONE_SHOT)
 
-        defaultUEH.uncaughtException(p0, p1)
+        //val alarmManager: AlarmManager = activity.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        //alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pendingIntent)
+
+        System.exit(10)
+
     }
 }

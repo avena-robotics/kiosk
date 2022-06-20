@@ -1,4 +1,4 @@
-package com.example.kiosk
+package com.example.kiosk.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.kiosk.R
 import com.example.kiosk.databinding.FragmentAdminBinding
-import com.example.kiosk.databinding.FragmentStartBinding
 import java.lang.NullPointerException
 
 class AdminFragment : Fragment() {

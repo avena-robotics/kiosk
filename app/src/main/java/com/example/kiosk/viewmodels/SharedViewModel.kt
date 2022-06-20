@@ -1,4 +1,4 @@
-package com.example.kiosk
+package com.example.kiosk.viewmodels
 
 import androidx.lifecycle.*
 import com.example.kiosk.data.DataBase
