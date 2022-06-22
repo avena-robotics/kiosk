@@ -21,6 +21,7 @@ import com.example.kiosk.BuildConfig
 import com.example.kiosk.R
 import com.example.kiosk.viewmodels.SharedViewModel
 import com.example.kiosk.adapter.SumListAdapter
+import com.example.kiosk.data.DataBase
 import com.example.kiosk.databinding.CardViewBinding
 import com.example.kiosk.databinding.FragmentPaymentBinding
 import com.example.kiosk.model.Storage
@@ -33,6 +34,7 @@ class PaymentFragment : Fragment() {
     lateinit var popupWindow: PopupWindow
     lateinit var model: SharedViewModel
 
+    val dataBase = DataBase()
     var timerFlag = 0
 
     val timer = object: CountDownTimer(60000, 1000){ //60000
@@ -69,10 +71,12 @@ class PaymentFragment : Fragment() {
 
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
+        binding.changeName.visibility = View.INVISIBLE
+
         binding.productTotal = model.total.value!!
 
         if(model.clientName.value == ""){
-            binding.clientName = generateFirstName()
+            binding.clientName = generateNewName()
             model.clientName.value = binding.clientName
             model.nameGenFlag.value = true
         }else{
@@ -281,5 +285,30 @@ class PaymentFragment : Fragment() {
         return getString(resources.getIdentifier("name_first_${Random.nextInt(1,10)}", "string",
             BuildConfig.APPLICATION_ID)) + " " + getString(resources.getIdentifier("name_seccond_${Random.nextInt(1,10)}", "string",
             BuildConfig.APPLICATION_ID))
+    }
+
+    fun generateNewName(): String{
+        var last_name = ""
+        var number = 0
+        runBlocking {
+            launch(Dispatchers.IO){
+                last_name = dataBase.getLastName()
+                println(last_name)
+            }
+        }
+
+        for(i in 1..50){
+            if(getString(resources.getIdentifier("imie_$i", "string", BuildConfig.APPLICATION_ID)) == last_name){
+                if(i == 50){
+                    number = 1
+                }else{
+                    number = i+1
+                }
+                break
+            }else{
+                number = 1
+            }
+        }
+        return getString(resources.getIdentifier("imie_$number", "string", BuildConfig.APPLICATION_ID))
     }
 }
