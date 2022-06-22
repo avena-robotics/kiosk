@@ -38,6 +38,8 @@
             android:layout_height="wrap_content"
             android:text="@{productName}"
             android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
             android:paddingLeft="10dp" />
 
         <TextView
@@ -45,6 +47,7 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:text = "@{@string/price(productPrice)}"
+            android:textColor="@color/black"
             android:paddingLeft="20dp" />
 
         <TextView
@@ -52,6 +55,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@{Integer.toString(productNumber)}"
+            android:textColor="@color/black"
             android:paddingLeft="20dp" />
 
         <Button
@@ -78,6 +82,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text= "@{@string/round(productSum)}"
+            android:textColor="@color/black"
             android:paddingLeft="20dp" />
 
     </LinearLayout>

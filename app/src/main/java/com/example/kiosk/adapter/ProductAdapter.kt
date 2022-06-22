@@ -105,12 +105,5 @@ class ProductAdapter(val context: Context, val products: MutableList<Storage>): 
                 binding.downButton.visibility = View.INVISIBLE
             }
         }
-
-        /*
-
-
-         */
     }
-
-
 }

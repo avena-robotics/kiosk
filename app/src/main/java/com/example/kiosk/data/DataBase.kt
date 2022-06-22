@@ -320,6 +320,59 @@ class DataBase {
             }
         }
     }
+
+    fun getLastName(): String{
+        try{
+            connection = DriverManager.getConnection(connectionURL)
+        }catch(ex: SQLException){
+            ex.printStackTrace()
+        }catch(ex: Exception){
+            ex.printStackTrace()
+        }
+
+        var stmt: Statement? = null
+        var resultset: ResultSet? = null
+
+        var name = ""
+
+        try{
+            stmt = connection!!.createStatement()
+            resultset = stmt!!.executeQuery("SELECT client_name FROM orders ORDER BY id DESC LIMIT 1 WHERE client_name IS NOT NULL ;")
+
+            while(resultset!!.next()){
+                name = resultset.getString("client_name")
+            }
+        } catch (ex: SQLException){
+            ex.printStackTrace()
+        } finally {
+            if (resultset != null){
+                try {
+                    resultset.close()
+                } catch (sqlEx: SQLException){
+                }
+                resultset = null
+            }
+
+            if (stmt != null){
+                try {
+                    stmt.close()
+                } catch (sqlEx: SQLException){
+                }
+                stmt = null
+            }
+
+            if (connection != null){
+                try {
+                    connection!!.close()
+                } catch (sqlEx: SQLException){
+                }
+                connection = null
+            }
+        }
+        return name
+    }
+
+
 }
 
 
