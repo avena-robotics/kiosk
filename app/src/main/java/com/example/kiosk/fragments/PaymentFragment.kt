@@ -309,6 +309,11 @@ class PaymentFragment : Fragment() {
                 number = 1
             }
         }
-        return getString(resources.getIdentifier("imie_$number", "string", BuildConfig.APPLICATION_ID))
+        val name = getString(resources.getIdentifier("imie_$number", "string", BuildConfig.APPLICATION_ID))
+
+        GlobalScope.launch(Dispatchers.IO) {
+            dataBase.setClientName(name, model.currentId.value!!)
+        }
+        return name
     }
 }

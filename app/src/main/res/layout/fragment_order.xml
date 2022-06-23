@@ -76,6 +76,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text = "@{@string/round(productTotal)}"
+            android:textColor="@color/black"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:id = "@+id/total"/>
