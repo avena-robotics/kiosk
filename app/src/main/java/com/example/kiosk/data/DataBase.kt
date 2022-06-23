@@ -337,7 +337,7 @@ class DataBase {
 
         try{
             stmt = connection!!.createStatement()
-            resultset = stmt!!.executeQuery("SELECT client_name FROM orders ORDER BY id DESC LIMIT 1 WHERE client_name IS NOT NULL ;")
+            resultset = stmt!!.executeQuery("SELECT client_name FROM orders WHERE client_name IS NOT NULL ORDER BY id DESC LIMIT 1;")
 
             while(resultset!!.next()){
                 name = resultset.getString("client_name")
