@@ -31,11 +31,5 @@ class MainActivity : BaseActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-
-        println(applicationContext.packageName)
-        val packages = packageManager.getInstalledPackages(0)
-        for(i in packages){
-            println(i.packageName)
-        }
     }
 }
