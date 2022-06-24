@@ -47,15 +47,11 @@ class OrderFragment : Fragment() {
 
             model.updateStorage()
 
-
             if(model.changeFlag.value!!){
                 timerCheckFlag = true
                 adapter.notifyDataSetChanged()
                 timerCheckFlag = false
             }
-
-
-            //println("Order tick $p0")
         }
     }
 
@@ -80,7 +76,6 @@ class OrderFragment : Fragment() {
         adapter = ProductAdapter(this.requireContext(), products.value!!)
 
         adapter.setHasStableIds(true)
-        //adapter = ItemAdapter(this.requireContext(), products.value!!)
         binding.list.adapter = adapter
         binding.list.layoutManager = object: LinearLayoutManager(context){
             override fun canScrollVertically(): Boolean {
@@ -108,32 +103,6 @@ class OrderFragment : Fragment() {
             }
         })
 
-        /*
-        binding.list.setOnItemClickListener { adapterView, view, i, l ->
-            timer.cancel()
-            timer.start()
-            println("list item click ${adapterView.count}, $i, $l, $view")
-        }
-
-        binding.list.adapter.registerDataSetObserver(object: DataSetObserver() {
-            override fun onChanged() {
-                super.onChanged()
-                sumProducts()
-                if(!timerCheckFlag){
-
-                    if(noOrderFlag){
-                        model.firstOrder()
-                        noOrderFlag = false
-                    }else{
-                        model.orderChange(0)
-                    }
-
-                    timer.cancel()
-                    timer.start()
-                }
-            }
-        })
-         */
         binding.cancelButton.setOnClickListener {
             if(!noOrderFlag){
                 model.cancelOrder()
@@ -160,7 +129,6 @@ class OrderFragment : Fragment() {
         }
 
         timer.start()
-        println("4")
     }
 
     fun sumProducts(){

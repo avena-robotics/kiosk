@@ -39,7 +39,6 @@ class PaymentFragment : Fragment() {
 
     val timer = object: CountDownTimer(60000, 1000){ //60000
         override fun onTick(p0: Long) {
-            println("Payment tick $p0")
         }
 
         override fun onFinish() {
@@ -114,7 +113,6 @@ class PaymentFragment : Fragment() {
             popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
 
             popupWindow.setOnDismissListener {
-                println("dismiss")
                 if(timerFlag == 0){
                     timer.cancel()
                     timer.start()
