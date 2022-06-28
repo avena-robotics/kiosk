@@ -7,7 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="munchies_red">#D50000</color>
-    <!--color name="munchies_red">#DB323E</color-->
+
     <color name="munchies_blue">#007AA6</color>
+    <color name="munchies_red">#DB323E</color>
+
+    <color name="first_page_green">#97CB64</color>
 </resources>

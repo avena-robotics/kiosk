@@ -1,98 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<data>
-    <variable
-        name="productTotal"
-        type="float" />
+    <data>
 
-    <variable
-        name="clock"
-        type="String" />
-</data>
+    </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.OrderFragment">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="480dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:width="20dp"
-        android:text="@{clock}"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="1160dp"
-        android:layout_gravity="center"
-        android:focusable="true"
-        android:divider="@null"
-        android:clickable="false"
-        android:listSelector="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_background">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/list"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <Button
+        <LinearLayout
+            android:id="@+id/flagButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:id = "@+id/cancelButton"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/munchies_red"/>
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/plFlagButton"
+                android:layout_width="53dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="5dp"
+
+                android:scaleType="fitStart"
+                android:background="@null"
+
+                app:srcCompat="@drawable/ic_polandflag" />
+
+            <ImageButton
+                android:id="@+id/enFlagButton"
+                android:layout_width="53dp"
+                android:layout_height="100dp"
+
+                android:scaleType="fitStart"
+                android:background="@null"
+
+                app:srcCompat="@drawable/ic_angflag" />
+        </LinearLayout>
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text = "@{@string/round(productTotal)}"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:id = "@+id/total"/>
-
-        <Button
+            android:id="@+id/textMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center"
-            android:text="@string/pay"
-            android:id = "@+id/payButton"
-            android:backgroundTint="@color/munchies_red"/>
 
-    </LinearLayout>
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/glory_medium"
+            android:text="Menu"
+            android:textColor="@color/black"
+            android:textSize="80sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/flagButtons" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/LogoImage"
+            android:layout_width="316dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_muchieslogo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_pizza"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="Pizza"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            app:cornerRadius="40dp"
+            app:strokeColor="@color/munchies_blue"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LogoImage" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_soses"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="Sosy"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            app:cornerRadius="40dp"
+            app:strokeColor="@color/munchies_blue"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_pizza" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_drinks"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="10dp"
+
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="Napoje"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            app:cornerRadius="40dp"
+            app:strokeColor="@color/munchies_blue"
+
+            app:layout_constraintStart_toEndOf="@+id/button_pizza"
+            app:layout_constraintTop_toBottomOf="@+id/LogoImage" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_boxes"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="Opakowania"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            app:cornerRadius="40dp"
+            app:strokeColor="@color/munchies_blue"
+
+            app:layout_constraintStart_toEndOf="@+id/button_soses"
+            app:layout_constraintTop_toBottomOf="@+id/button_drinks" />
+
+        <ImageView
+            android:id="@+id/robotImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMenu"
+            app:srcCompat="@drawable/ic_seccondpagerobot" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="700dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_boxes"
+
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="400dp"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:orientation="vertical"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/textSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Suma zamówienia"
+                android:fontFamily="@font/glory_light"
+                android:textColor="@color/black" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="150dp"
+                    android:layout_height="43dp"
+                    android:text="Anuluj"
+                    android:textAllCaps="false"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/glory_medium"
+                    android:textColor="@color/munchies_red"
+                    android:layout_marginEnd="20dp"
+                    app:strokeColor="@color/munchies_red"
+                    app:cornerRadius="40dp" />
+
+                <TextView
+                    android:id="@+id/TextSumPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="109,10 zł"
+                    android:fontFamily="@font/glory_bold"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/submitButton"
+                    android:layout_width="150dp"
+                    android:layout_height="43dp"
+                    android:layout_marginStart="20dp"
+                    android:text="Potwierdź"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/glory_medium"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/first_page_green"
+                    app:cornerRadius="40dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

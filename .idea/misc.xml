@@ -3,16 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_fallback.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/card_view.xml" value="0.3171875" />
-        <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.21" />
-        <entry key="app/src/main/res/layout/fragment_order.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_start.xml" value="0.2565972222222222" />
-        <entry key="app/src/main/res/layout/main_activity.xml" value="0.16" />
-        <entry key="app/src/main/res/layout/main_fragment.xml" value="0.5040760869565217" />
-        <entry key="app/src/main/res/layout/row_layout.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/sum_row_layout.xml" value="0.22256944444444443" />
+        <entry key="app/src/main/res/drawable/button_background.xml" value="0.3835" />
+        <entry key="app/src/main/res/drawable/button_press.xml" value="0.3835" />
+        <entry key="app/src/main/res/drawable/ic_background.xml" value="0.3835" />
+        <entry key="app/src/main/res/drawable/ic_firstpagerobot.xml" value="0.3835" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3835" />
+        <entry key="app/src/main/res/drawable/ic_muchieslogo.xml" value="0.3835" />
+        <entry key="app/src/main/res/drawable/ic_polandflag.xml" value="0.3835" />
+        <entry key="app/src/main/res/drawable/ic_touch.xml" value="0.3835" />
+        <entry key="app/src/main/res/drawable/rounded_button.xml" value="0.3835" />
+        <entry key="app/src/main/res/layout-sw600dp/fragment_start.xml" value="0.12777777777777777" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/fragment_order.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/layout/fragment_start.xml" value="0.15" />
       </map>
     </option>
   </component>
