@@ -9,13 +9,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".fragments.StartFragment">
+        android:layout_height="match_parent">
 
-        <VideoView
-            android:id="@+id/video"
+        <ImageView
+            android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:src="@drawable/ic_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -23,56 +23,85 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/infoButton"
+            android:layout_width="600dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.915"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            android:text="@string/welcome_message"
 
-            <ImageButton
-                android:id="@+id/polishFlagButton"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:backgroundTint="@color/munchies_blue"
-                android:src="@drawable/polish_flag" />
-
-            <ImageButton
-                android:id="@+id/englishFlagButton"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="10dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:backgroundTint="@color/munchies_blue"
-                android:src="@drawable/english_flag" />
-
-        </LinearLayout>
+            style="@style/Widget.MaterialComponents.Button"
+            app:cornerRadius="40dp"
+            android:textSize="36sp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/first_page_green"
 
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="@string/press"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="2"
-            android:shadowColor="@color/black"
-            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <LinearLayout
+            android:id="@+id/flagButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/plFlagButton"
+                android:layout_width="80dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="10dp"
+
+                android:background="@null"
+                android:scaleType="fitStart"
+
+                app:srcCompat="@drawable/ic_polandflag" />
+
+            <ImageButton
+                android:id="@+id/enFlagButton"
+                android:layout_width="80dp"
+                android:layout_height="150dp"
+
+                android:background="@null"
+                android:scaleType="fitStart"
+
+                app:srcCompat="@drawable/ic_angflag" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="600dp"
+            android:layout_height="240dp"
+            android:layout_marginBottom="120dp"
+            app:layout_constraintBottom_toTopOf="@+id/infoButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_muchieslogo" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="220dp"
+            android:layout_height="244dp"
+            android:layout_marginTop="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoButton"
+            app:srcCompat="@drawable/ic_touch" />
+
+        <ImageView
+            android:id="@+id/character"
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+            android:scaleType="fitEnd"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_firstpagerobot" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
