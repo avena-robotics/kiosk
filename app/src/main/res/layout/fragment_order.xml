@@ -47,7 +47,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="12dp"
             android:layout_marginEnd="50dp"
             android:fontFamily="@font/glory_medium"
             android:text="Menu"
@@ -63,7 +62,7 @@
             android:layout_width="316dp"
             android:layout_height="120dp"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_muchieslogo" />
@@ -83,6 +82,7 @@
             android:textAlignment="center"
             app:cornerRadius="40dp"
             app:strokeColor="@color/munchies_blue"
+            app:backgroundTint="@color/transparent"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LogoImage" />
@@ -147,7 +147,7 @@
             android:id="@+id/robotImage"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textMenu"
@@ -155,8 +155,8 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="700dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="950dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_boxes"
@@ -165,8 +165,11 @@
             app:cardElevation="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="400dp"
-                android:layout_height="100dp"
+                android:layout_width="680dp"
+                android:layout_height="930dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/list"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -176,7 +179,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="50dp"
             android:orientation="vertical"
 
             app:layout_constraintBottom_toBottomOf="parent"
@@ -197,6 +200,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
@@ -210,6 +214,7 @@
                     android:fontFamily="@font/glory_medium"
                     android:textColor="@color/munchies_red"
                     android:layout_marginEnd="20dp"
+                    android:gravity="center"
                     app:strokeColor="@color/munchies_red"
                     app:cornerRadius="40dp" />
 
@@ -221,7 +226,7 @@
                     android:text="109,10 zł"
                     android:fontFamily="@font/glory_bold"
                     android:textColor="@color/black"
-                    android:textSize="26sp" />
+                    android:textSize="28sp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/submitButton"

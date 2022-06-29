@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="productPrice"
+            type="float" />
+
+        <variable
+            name="productNumber"
+            type="int"/>
+
+        <variable
+            name="productSum"
+            type="float"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="102dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/Image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="5dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CornerSize10Percent"
+            app:srcCompat="@drawable/ic_launcher_foreground"
+            app:strokeColor="@color/background_beige"
+            app:strokeWidth="5dp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="11dp"
+            android:text="Pizza Firmowa"
+            android:gravity="center"
+
+            android:fontFamily="@font/glory_bold"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+
+            app:layout_constraintStart_toEndOf="@+id/Image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sideText"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:text="Pieczarki, Kurczak, Ser"
+
+            android:fontFamily="@font/glory_light"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+
+            app:layout_constraintStart_toEndOf="@+id/Image"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="31dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:text="10,90zł"
+            android:textSize="16sp"
+            android:fontFamily="@font/glory_medium"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/productNumber"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/productNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="31dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/textview_border"
+            android:padding="10dp"
+
+            android:text="1 szt."
+            android:textSize="16sp"
+            android:fontFamily="@font/glory_bold"
+            android:textColor="@color/black"
+
+            app:layout_constraintEnd_toStartOf="@+id/downButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/downButton"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="31dp"
+
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/munchies_red"
+            android:fontFamily="@font/glory_extra_bold"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            android:text="-"
+
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/upButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Button.Circle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/upButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="31dp"
+            android:text="+"
+
+            android:padding="0dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+
+            android:backgroundTint="@color/add_blue"
+            android:fontFamily="@font/glory_extra_bold"
+            android:textSize="30sp"
+
+            style="@style/Widget.MaterialComponents.Button"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Button.Circle"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/glory_medium"
+            android:text="10,90zł"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/downButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
