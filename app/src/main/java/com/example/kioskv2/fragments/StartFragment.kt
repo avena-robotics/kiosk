@@ -30,6 +30,7 @@ class StartFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         val model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        model.productsInit()
 
         binding.plFlagButton.setOnClickListener {
             if(LangStorage(requireContext()).getPreferredLocale() != "pl"){

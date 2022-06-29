@@ -12,4 +12,8 @@
     <color name="munchies_red">#DB323E</color>
 
     <color name="first_page_green">#97CB64</color>
+    <color name="background_beige">#F8DCAD</color>
+    <color name="add_blue">#45c1c8</color>
+
+    <color name="transparent">#00FFFFFF</color>
 </resources>
