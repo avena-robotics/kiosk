@@ -15,5 +15,7 @@
     <color name="background_beige">#F8DCAD</color>
     <color name="add_blue">#45c1c8</color>
 
+
     <color name="transparent">#00FFFFFF</color>
+    <color name="name_yellow">#EEC718</color>
 </resources>

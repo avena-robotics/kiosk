@@ -1,6 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_background">
+
+        <LinearLayout
+            android:id="@+id/flagButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/plFlagButton"
+                android:layout_width="53dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="5dp"
+
+                android:scaleType="fitStart"
+                android:background="@null"
+
+                app:srcCompat="@drawable/ic_polandflag" />
+
+            <ImageButton
+                android:id="@+id/enFlagButton"
+                android:layout_width="53dp"
+                android:layout_height="100dp"
+
+                android:scaleType="fitStart"
+                android:background="@null"
+
+                app:srcCompat="@drawable/ic_angflag" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/LogoImage"
+            android:layout_width="480dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="120dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_muchieslogo" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="700dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/name_yellow"
+            android:id="@+id/nameContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LogoImage"
+
+            app:cardCornerRadius="30dp"
+            app:cardElevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:id = "@+id/firstText"
+                        android:text="Imię użyte"
+                        android:gravity="right"
+
+                        android:fontFamily="@font/glory_medium"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+
+                        android:layout_marginTop="3dp"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="do Twojego zamówienia"
+
+                        android:fontFamily="@font/glory_medium"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/firstText" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="515dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="10dp"
+                        android:backgroundTint="@color/white"
+
+                        app:layout_constraintStart_toEndOf="@+id/firstText"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+
+                        app:cardCornerRadius="30dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text = "Konstantynopoliusz"
+
+                            android:fontFamily="@font/glory_medium"
+                            android:textColor="@color/black"
+                            android:textSize="36sp"
+
+                            android:layout_marginStart="10dp"
+                            />
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kwota do zapłaty"
+            android:id = "@+id/textPriceToPay"
+
+            android:fontFamily="@font/glory_medium"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="100dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameContainer" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="109,10 zł"
+            android:id = "@+id/Sum"
+
+            android:fontFamily="@font/glory_medium"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+
+            android:layout_marginStart="50dp"
+
+            app:layout_constraintStart_toEndOf="@id/textPriceToPay"
+            app:layout_constraintBottom_toTopOf="@id/divider" />
+
+        <View
+            android:layout_width="470dp"
+            android:layout_height="2dp"
+            android:id="@+id/divider"
+            android:background="@android:color/darker_gray"
+
+            android:layout_marginStart="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textPriceToPay"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/systemInfo"
+            android:text="System nie wydaje potwierdzeń"
+
+            android:fontFamily="@font/glory_light"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+
+            android:layout_marginStart="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:text="Dokonaj płatności"
+
+            style="@style/Widget.MaterialComponents.Button"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            app:cornerRadius="60dp"
+            android:backgroundTint="@color/first_page_green"
+            android:textColor="@color/black"
+
+            android:layout_marginTop="90dp"
+            android:layout_marginStart="10dp"
+
+            app:layout_constraintStart_toEndOf="@id/divider"
+            app:layout_constraintTop_toBottomOf="@id/nameContainer"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/orderDetailsText"
+            android:text="Podsumowanie zamówienia"
+
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+
+            android:fontFamily="@font/glory_extra_bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+
+            app:layout_constraintTop_toBottomOf="@id/systemInfo"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="700dp"
+            android:layout_height="600dp"
+            android:id="@+id/orderDetailsContainer"
+
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+
+            app:cardCornerRadius="30dp"
+            app:cardElevation="2dp"
+
+            app:layout_constraintTop_toBottomOf="@id/orderDetailsText"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:text="Anuluj zamówienie"
+            android:id="@+id/cancelOrderButton"
+
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            app:cornerRadius="60dp"
+            app:strokeColor="@color/munchies_red"
+            android:textColor="@color/munchies_red"
+
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="50dp"
+
+            app:layout_constraintEnd_toStartOf="@id/editOrderButton"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:id="@+id/editOrderButton"
+            android:text="Edytuj zamówienie"
+
+            style="@style/Widget.MaterialComponents.Button"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            app:cornerRadius="60dp"
+            android:backgroundTint="@color/name_yellow"
+            android:textColor="@color/black"
+
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="50dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,4 +1,14 @@
 <resources>
-    <string name="app_name">KioskV2</string>
+    <string name="app_name" translatable="false">KioskV2</string>
+    <string name="price" translatable="false">%.2f zł"</string>
+    <string name="number">%d szt.</string>
     <string name="welcome_message">Przyciśnij ekran, aby zamówić</string>
+    <string name="menu">Menu</string>
+    <string name="pizza">Pizza</string>
+    <string name="sauces">Sosy</string>
+    <string name="drinks">Napoje</string>
+    <string name="boxes">Opakowania</string>
+    <string name="order_sum">Suma zamówienia</string>
+    <string name="cancel">Anuluj</string>
+    <string name="confirm">Potwierdź</string>
 </resources>

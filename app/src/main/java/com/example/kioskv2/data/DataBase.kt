@@ -87,6 +87,74 @@ class DataBase {
         return output
     }
 
+    fun updateStorage(type: Int): MutableList<Int> {
+        val output: MutableList<Int> = mutableListOf()
+        val productsInfo: MutableMap<String, Int> = mutableMapOf()
+
+        try{
+            connection = DriverManager.getConnection(connectionURL)
+        }catch(ex: SQLException){
+            ex.printStackTrace()
+        }catch(ex: Exception){
+            ex.printStackTrace()
+        }
+
+        var stmt: Statement? = null
+        var resultset: ResultSet? = null
+        var resultset2: ResultSet? = null
+
+        try{
+            stmt = connection!!.createStatement()
+            resultset = stmt!!.executeQuery("SELECT name_en, quantity FROM storage_state WHERE type = $type ORDER BY type, seq;")
+            resultset2 = stmt!!.executeQuery("SELECT * FROM orders WHERE status not in (4,5)")
+
+            while(resultset!!.next()){
+                output.add(resultset.getInt("quantity"))
+                productsInfo[resultset.getString("name_en")] = 0
+            }
+
+            while(resultset2!!.next()){
+                productsInfo.forEach { (s, i) ->
+                    productsInfo[s] = i + resultset2.getInt(s)
+                }
+            }
+        } catch (ex: SQLException){
+            ex.printStackTrace()
+        } finally {
+            if (resultset != null){
+                try {
+                    resultset.close()
+                } catch (sqlEx: SQLException){
+                }
+                resultset = null
+            }
+
+            if (stmt != null){
+                try {
+                    stmt.close()
+                } catch (sqlEx: SQLException){
+                }
+                stmt = null
+            }
+
+            if (connection != null){
+                try {
+                    connection!!.close()
+                } catch (sqlEx: SQLException){
+                }
+                connection = null
+            }
+        }
+
+        val iter = productsInfo.keys.iterator()
+        for(i in 0 until output.size){
+            output[i] = output[i] - productsInfo[iter.next()]!!
+        }
+
+        return output
+    }
+
+
     private fun addProduct(name_en: String, name_pl: String, price: Float, quantity: Int, type: Int, image: Bitmap){
         val record = Storage(name_en, name_pl, price, quantity, type, image)
         products.add(record)
