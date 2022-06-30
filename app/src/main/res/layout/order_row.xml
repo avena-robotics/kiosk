@@ -71,23 +71,24 @@
             android:layout_marginTop="31dp"
             android:layout_marginEnd="20dp"
             android:gravity="center"
-            android:text="10,90zł"
+            android:text="@{@string/price(productPrice)}"
             android:textSize="16sp"
             android:fontFamily="@font/glory_medium"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/productNumber"
+            app:layout_constraintEnd_toStartOf="@+id/number"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/productNumber"
-            android:layout_width="wrap_content"
+            android:id="@+id/number"
+            android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_marginTop="31dp"
             android:layout_marginEnd="10dp"
+            android:gravity="center"
             android:background="@drawable/textview_border"
             android:padding="10dp"
 
-            android:text="1 szt."
+            android:text="@{@string/number(productNumber)}"
             android:textSize="16sp"
             android:fontFamily="@font/glory_bold"
             android:textColor="@color/black"
@@ -123,6 +124,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="31dp"
+            android:layout_marginEnd="2dp"
             android:text="+"
 
             android:padding="0dp"
@@ -144,13 +146,14 @@
         <TextView
             android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="2dp"
+            android:id = "@+id/sum"
             android:fontFamily="@font/glory_medium"
-            android:text="10,90zł"
+            android:text="@{@string/price(productSum)}"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="26sp"
-
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/downButton" />

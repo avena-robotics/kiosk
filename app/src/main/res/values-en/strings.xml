@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="welcome_message">Press the screen to order</string>
+    <string name="number">%d pcs</string>
+    <string name="menu">Menu</string>
+    <string name="pizza">Pizza</string>
+    <string name="sauces">Sauces</string>
+    <string name="drinks">Drinks</string>
+    <string name="boxes">Boxes</string>
+    <string name="order_sum">Order Sum</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 </resources>

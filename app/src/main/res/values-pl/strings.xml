@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="welcome_message">Przyciśnij ekran, aby zamówić</string>
+    <string name="number">%d szt.</string>
+    <string name="menu">Menu</string>
+    <string name="pizza">Pizza</string>
+    <string name="sauces">Sosy</string>
+    <string name="drinks">Napoje</string>
+    <string name="boxes">Opakowania</string>
+    <string name="order_sum">Suma zamówienia</string>
+    <string name="cancel">Anuluj</string>
+    <string name="confirm">Potwierdź</string>
 </resources>

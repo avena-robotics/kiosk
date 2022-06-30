@@ -12,9 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.kioskv2.MainActivity
 import com.example.kioskv2.R
 import com.example.kioskv2.adapter.ProductAdapter
 import com.example.kioskv2.databinding.FragmentOrderBinding
+import com.example.kioskv2.language.LangStorage
 import com.example.kioskv2.model.Storage
 import com.example.kioskv2.viewmodels.SharedViewModel
 
@@ -23,6 +26,8 @@ class OrderFragment : Fragment() {
     lateinit var adapter: ProductAdapter
     lateinit var model: SharedViewModel
     lateinit var products: LiveData<MutableList<Storage>>
+
+    var total: Float = 0.0F
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,8 +77,16 @@ class OrderFragment : Fragment() {
                 return false
             }
         }
+
         binding.list.layoutManager = layoutManager
         binding.list.addItemDecoration(DividerItemDecoration(this.requireContext(), layoutManager.orientation))
+
+        adapter.registerAdapterDataObserver(object: RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                sumProducts()
+            }
+        })
 
         binding.buttonPizza.setOnClickListener{
             buttonChange(1)
@@ -127,6 +140,26 @@ class OrderFragment : Fragment() {
         binding.cancelButton.setOnClickListener {
             binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
         }
+
+        binding.submitButton.setOnClickListener {
+            binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToPaymentFragment())
+        }
+
+        binding.enFlagButton.setOnClickListener {
+            if(LangStorage(requireContext()).getPreferredLocale() != "en"){
+                (activity as MainActivity).updateAppLocale("en")
+            }
+        }
+
+        binding.plFlagButton.setOnClickListener {
+            if(LangStorage(requireContext()).getPreferredLocale() != "pl"){
+                (activity as MainActivity).updateAppLocale("pl")
+            }
+        }
+
+        binding.LogoImage.setOnClickListener {
+
+        }
     }
 
     fun buttonChange(buttonNumber: Int){
@@ -177,5 +210,13 @@ class OrderFragment : Fragment() {
             }
             else -> {}
         }
+    }
+
+    fun sumProducts(){
+        total = 0.0F
+        for(i in 0 until products.value?.size!!){
+            total += products.value!![i].price * products.value!![i].number
+        }
+        binding.productTotal = total
     }
 }
