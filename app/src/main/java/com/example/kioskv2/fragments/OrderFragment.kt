@@ -1,6 +1,7 @@
 package com.example.kioskv2.fragments
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,34 @@ class OrderFragment : Fragment() {
 
     var total: Float = 0.0F
 
+    var timerCheckFlag = false
+    var noOrderFlag = true
+
+    val timer = object: CountDownTimer( 60000, 1000){
+        override fun onFinish() {
+            if(!noOrderFlag){
+                model.cancelOrder()
+            }else{
+                model.resetProducts()
+            }
+
+            println("Nav: Payment: Order to start timer")
+            binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
+        }
+
+        override fun onTick(p0: Long) {
+            //binding.clock = "${p0/1000}"
+
+            model.updateStorage()
+
+            if(model.changeFlag.value!!){
+                timerCheckFlag = true
+                adapter.notifyDataSetChanged()
+                timerCheckFlag = false
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +72,9 @@ class OrderFragment : Fragment() {
 
         model = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         products = model.products
+
+        noOrderFlag = model.currentId.value == 0
+        sumProducts()
 
         //przenieść do model
         val pizzaList: MutableList<Storage> = mutableListOf()
@@ -85,6 +117,16 @@ class OrderFragment : Fragment() {
             override fun onChanged() {
                 super.onChanged()
                 sumProducts()
+
+                if(noOrderFlag){
+                    model.firstOrder()
+                    noOrderFlag = false
+                }else{
+                    model.orderChange(0)
+                }
+
+                timer.cancel()
+                timer.start()
             }
         })
 
@@ -99,6 +141,9 @@ class OrderFragment : Fragment() {
                 print(productList.size)
             }
             adapter.notifyDataSetChanged()
+
+            timer.cancel()
+            timer.start()
         }
 
         binding.buttonDrinks.setOnClickListener{
@@ -111,6 +156,9 @@ class OrderFragment : Fragment() {
                 productList.add(drinkList[i])
             }
             adapter.notifyDataSetChanged()
+
+            timer.cancel()
+            timer.start()
         }
 
         binding.buttonSoses.setOnClickListener {
@@ -123,6 +171,9 @@ class OrderFragment : Fragment() {
                 productList.add(sosList[i])
             }
             adapter.notifyDataSetChanged()
+
+            timer.cancel()
+            timer.start()
         }
 
         binding.buttonBoxes.setOnClickListener{
@@ -135,14 +186,28 @@ class OrderFragment : Fragment() {
                 productList.add(boxList[i])
             }
             adapter.notifyDataSetChanged()
+
+            timer.cancel()
+            timer.start()
         }
 
         binding.cancelButton.setOnClickListener {
+            if(!noOrderFlag){
+                model.cancelOrder()
+            }else{
+                model.resetProducts()
+            }
+
+            timer.cancel()
             binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
         }
 
         binding.submitButton.setOnClickListener {
-            binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToPaymentFragment())
+            if(!noOrderFlag && binding.productTotal >0){
+                timer.cancel()
+                model.total.value = binding.productTotal
+                binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToPaymentFragment())
+            }
         }
 
         binding.enFlagButton.setOnClickListener {
@@ -160,6 +225,8 @@ class OrderFragment : Fragment() {
         binding.LogoImage.setOnClickListener {
 
         }
+
+        timer.start()
     }
 
     fun buttonChange(buttonNumber: Int){

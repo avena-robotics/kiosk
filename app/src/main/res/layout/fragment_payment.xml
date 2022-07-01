@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="productTotal"
+            type="float" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,7 +75,7 @@
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:id = "@+id/firstText"
-                        android:text="Imię użyte"
+                        android:text="@string/name_used"
                         android:gravity="right"
 
                         android:fontFamily="@font/glory_medium"
@@ -89,7 +91,7 @@
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="do Twojego zamówienia"
+                        android:text="@string/to_your_order"
 
                         android:fontFamily="@font/glory_medium"
                         android:textColor="@color/black"
@@ -113,6 +115,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:id = "@+id/clientName"
                             android:gravity="center"
                             android:text = "Konstantynopoliusz"
 
@@ -129,7 +132,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kwota do zapłaty"
+            android:text="@string/total_order_price"
             android:id = "@+id/textPriceToPay"
 
             android:fontFamily="@font/glory_medium"
@@ -145,7 +148,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="109,10 zł"
+            android:text="@{@string/price(productTotal)}"
             android:id = "@+id/Sum"
 
             android:fontFamily="@font/glory_medium"
@@ -171,7 +174,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id = "@+id/systemInfo"
-            android:text="System nie wydaje potwierdzeń"
+            android:text="@string/system_conformation"
 
             android:fontFamily="@font/glory_light"
             android:textColor="@color/black"
@@ -184,7 +187,8 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="220dp"
             android:layout_height="60dp"
-            android:text="Dokonaj płatności"
+            android:id = "@+id/paymentButton"
+            android:text="@string/start_transaction"
 
             style="@style/Widget.MaterialComponents.Button"
             android:textAllCaps="false"
@@ -205,7 +209,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/orderDetailsText"
-            android:text="Podsumowanie zamówienia"
+            android:text="@string/order_summary"
 
             android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
@@ -231,12 +235,22 @@
             app:layout_constraintTop_toBottomOf="@id/orderDetailsText"
             app:layout_constraintStart_toStartOf="parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="680dp"
+                android:layout_height="580dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="220dp"
             android:layout_height="60dp"
-            android:text="Anuluj zamówienie"
+            android:text="@string/cancel_order"
             android:id="@+id/cancelOrderButton"
 
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -258,7 +272,7 @@
             android:layout_width="220dp"
             android:layout_height="60dp"
             android:id="@+id/editOrderButton"
-            android:text="Edytuj zamówienie"
+            android:text="@string/edit_order"
 
             style="@style/Widget.MaterialComponents.Button"
             android:textAllCaps="false"
