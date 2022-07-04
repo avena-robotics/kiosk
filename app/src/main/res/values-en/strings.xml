@@ -87,4 +87,10 @@
     <string name="payment_cashback_not_allowed">CashBack Not Allowed</string>
     <string name="payment_incomplete">Incomplete</string>
     <string name="payment_accepted">Payment Processed</string>
+
+    <string name="end_goal">To receive Order go to ...</string>
+    <string name="payment_started">Payment started</string>
+    <string name="instruction">To Continue Look at the Terminal Bellow</string>
+    <string name="try_again">Try Again</string>
+    <string name="return_button">Return</string>
 </resources>

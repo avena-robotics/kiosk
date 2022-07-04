@@ -61,14 +61,14 @@
             app:layout_constraintStart_toEndOf="@id/bigInfoCircle" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="400dp"
             android:layout_height="20dp"
             android:id="@+id/secondText"
             android:text="Pieczarki, Kurczak, Ser"
 
             android:fontFamily="@font/glory_light"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="14sp"
 
             android:layout_marginStart="10dp"
 

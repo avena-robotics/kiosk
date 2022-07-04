@@ -7,7 +7,6 @@ import com.example.kioskv2.model.Storage
 import java.sql.*
 
 class DataBase {
-    var connection: Connection? = null
     private val dbIp = "10.3.15.143"
     private val user = "avena"
     private val password = "avena"
@@ -21,6 +20,7 @@ class DataBase {
     }
 
     fun updateStorage(): MutableList<Int> {
+        var connection: Connection? = null
         val output: MutableList<Int> = mutableListOf()
         val productsInfo: MutableMap<String, Int> = mutableMapOf()
 
@@ -88,6 +88,7 @@ class DataBase {
     }
 
     fun updateStorage(type: Int): MutableList<Int> {
+        var connection: Connection? = null
         val output: MutableList<Int> = mutableListOf()
         val productsInfo: MutableMap<String, Int> = mutableMapOf()
 
@@ -155,12 +156,13 @@ class DataBase {
     }
 
 
-    private fun addProduct(name_en: String, name_pl: String, price: Float, quantity: Int, type: Int, image: Bitmap){
-        val record = Storage(name_en, name_pl, price, quantity, type, image)
+    private fun addProduct(name_en: String, name_pl: String, ingredients_en: String, ingredients_pl: String, price: Float, quantity: Int, type: Int, image: Bitmap){
+        val record = Storage(name_en, name_pl, ingredients_en, ingredients_pl, price, quantity, type, image)
         products.add(record)
     }
 
     private fun fromDb(){
+        var connection: Connection? = null
         try{
             connection = DriverManager.getConnection(connectionURL)
         }catch(ex: SQLException){
@@ -181,7 +183,7 @@ class DataBase {
                 blob = resultset.getBlob("image")
                 val blobLength: Int = blob.length().toInt()
                 val blobArray = blob.getBytes(1, blobLength)
-                addProduct(resultset.getString("name_en"), resultset.getString("name_pl"), resultset.getFloat("price"), resultset.getInt("quantity"), resultset.getInt("type"), BitmapFactory.decodeByteArray(blobArray, 0, blobArray.size)
+                addProduct(resultset.getString("name_en"), resultset.getString("name_pl"),  resultset.getString("ingredients_en"),  resultset.getString("ingredients_pl"), resultset.getFloat("price"), resultset.getInt("quantity"), resultset.getInt("type"), BitmapFactory.decodeByteArray(blobArray, 0, blobArray.size)
                 )
             }
         } catch (ex: SQLException){
@@ -214,6 +216,7 @@ class DataBase {
     }
 
     fun updateOrder(order: Order, id: Int){
+        var connection: Connection? = null
         try{
             connection = DriverManager.getConnection(connectionURL)
         }catch(ex: SQLException){
@@ -283,6 +286,7 @@ class DataBase {
     }
 
     fun firstOrder(): Int{
+        var connection: Connection? = null
         var id: Int = 0
 
         try{
@@ -341,6 +345,7 @@ class DataBase {
     }
 
     fun setClientName(name: String, id: Int) {
+        var connection: Connection? = null
         try{
             connection = DriverManager.getConnection(connectionURL)
         }catch(ex: SQLException){
@@ -390,6 +395,7 @@ class DataBase {
     }
 
     fun getLastName(): String{
+        var connection: Connection? = null
         try{
             connection = DriverManager.getConnection(connectionURL)
         }catch(ex: SQLException){

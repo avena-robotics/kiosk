@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_paymentFragment_to_orderFragment"
             app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_paymentFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
@@ -47,6 +50,14 @@
         android:label="AdminFragment" >
         <action
             android:id="@+id/action_adminFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.example.kioskv2.fragments.TransactionFragment"
+        android:label="TransactionFragment" >
+        <action
+            android:id="@+id/action_transactionFragment_to_startFragment"
             app:destination="@id/startFragment" />
     </fragment>
 </navigation>

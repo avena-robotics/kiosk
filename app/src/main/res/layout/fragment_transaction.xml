@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="productTotal"
+            type="float" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_background">
+
+        <LinearLayout
+            android:id="@+id/flagButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/plFlagButton"
+                android:layout_width="53dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="5dp"
+
+                android:scaleType="fitStart"
+                android:background="@null"
+
+                app:srcCompat="@drawable/ic_polandflag" />
+
+            <ImageButton
+                android:id="@+id/enFlagButton"
+                android:layout_width="53dp"
+                android:layout_height="100dp"
+
+                android:scaleType="fitStart"
+                android:background="@null"
+
+                app:srcCompat="@drawable/ic_angflag" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/LogoImage"
+            android:layout_width="480dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="120dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_muchieslogo" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="700dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/name_yellow"
+            android:id="@+id/nameContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LogoImage"
+
+            app:cardCornerRadius="30dp"
+            app:cardElevation="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:id = "@+id/firstText"
+                    android:text="@string/name_used"
+                    android:gravity="right"
+
+                    android:fontFamily="@font/glory_medium"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    android:layout_marginTop="3dp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/to_your_order"
+
+                    android:fontFamily="@font/glory_medium"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/firstText" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="515dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="10dp"
+                    android:backgroundTint="@color/white"
+
+                    app:layout_constraintStart_toEndOf="@+id/firstText"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+
+                    app:cardCornerRadius="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id = "@+id/clientName"
+                        android:gravity="center"
+                        android:text = "Konstantynopoliusz"
+
+                        android:fontFamily="@font/glory_medium"
+                        android:textColor="@color/black"
+                        android:textSize="36sp"
+
+                        android:layout_marginStart="10dp"
+                        />
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_order_price"
+            android:id = "@+id/textPriceToPay"
+
+            android:fontFamily="@font/glory_medium"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="100dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameContainer" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/price(productTotal)}"
+            android:id = "@+id/Sum"
+
+            android:fontFamily="@font/glory_medium"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+
+            android:layout_marginStart="50dp"
+
+            app:layout_constraintStart_toEndOf="@id/textPriceToPay"
+            app:layout_constraintBottom_toTopOf="@id/divider" />
+
+        <View
+            android:layout_width="700dp"
+            android:layout_height="2dp"
+            android:id="@+id/divider"
+            android:background="@android:color/darker_gray"
+
+            android:layout_marginStart="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textPriceToPay"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/systemInfo"
+            android:text="@string/system_conformation"
+
+            android:fontFamily="@font/glory_light"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+
+            android:layout_marginStart="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="700dp"
+            android:layout_height="100dp"
+            android:id="@+id/orderDetailsContainer"
+
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="80dp"
+
+            app:cardCornerRadius="30dp"
+            app:cardElevation="2dp"
+
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:id = "@+id/mainText"
+                    android:text = "@string/payment_started"
+                    android:layout_marginTop="18dp"
+
+                    android:fontFamily="@font/glory_bold"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <View
+                    android:layout_width="600dp"
+                    android:layout_height="4dp"
+                    android:id="@+id/divider2"
+                    android:background="@android:color/darker_gray"
+
+                    android:layout_marginStart="50dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mainText"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:gravity = "center"
+                    android:id = "@+id/supportText"
+                    android:text = "@string/instruction"
+
+                    android:fontFamily="@font/glory_light"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider2"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:id = "@+id/redoButton"
+            android:text="@string/try_again"
+
+            style="@style/Widget.MaterialComponents.Button"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            app:cornerRadius="60dp"
+            android:backgroundTint="@color/first_page_green"
+            android:textColor="@color/black"
+
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="50dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderDetailsContainer"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:text="@string/return_button"
+            android:id="@+id/backButton"
+
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:textAllCaps="false"
+            android:fontFamily="@font/glory_medium"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            app:cornerRadius="60dp"
+            app:strokeColor="@color/munchies_red"
+            android:textColor="@color/munchies_red"
+
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="50dp"
+
+            app:layout_constraintEnd_toStartOf="@id/redoButton"
+            app:layout_constraintTop_toBottomOf="@id/orderDetailsContainer"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
