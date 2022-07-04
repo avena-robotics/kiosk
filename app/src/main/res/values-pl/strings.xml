@@ -87,4 +87,10 @@
     <string name="payment_cashback_not_allowed">CashBack nie jest dozwolony</string>
     <string name="payment_incomplete">Niekomplentne</string>
     <string name="payment_accepted">Płatność zaakceptowana</string>
+
+    <string name="end_goal">Po odbór zamówienia podejdź do ...</string>
+    <string name="payment_started">Płatność rozpoczęta</string>
+    <string name="instruction">Postępuj zgodnie z instrukcjami wyświetlonymi na terminalu poniżej</string>
+    <string name="try_again">Spróbuj ponownie</string>
+    <string name="return_button">Powrót</string>
 </resources>

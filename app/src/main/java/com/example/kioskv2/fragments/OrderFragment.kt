@@ -21,6 +21,8 @@ import com.example.kioskv2.databinding.FragmentOrderBinding
 import com.example.kioskv2.language.LangStorage
 import com.example.kioskv2.model.Storage
 import com.example.kioskv2.viewmodels.SharedViewModel
+import kotlinx.coroutines.runBlocking
+import java.lang.Exception
 
 class OrderFragment : Fragment() {
     lateinit var binding: FragmentOrderBinding
@@ -33,7 +35,7 @@ class OrderFragment : Fragment() {
     var timerCheckFlag = false
     var noOrderFlag = true
 
-    val timer = object: CountDownTimer( 60000, 1000){
+    val timer = object: CountDownTimer( 60000, 1000){ //TO FIX !!!!!!!!!!!!
         override fun onFinish() {
             if(!noOrderFlag){
                 model.cancelOrder()
@@ -42,13 +44,20 @@ class OrderFragment : Fragment() {
             }
 
             println("Nav: Payment: Order to start timer")
-            binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
+            try{
+                binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+
         }
 
         override fun onTick(p0: Long) {
-            //binding.clock = "${p0/1000}"
-
-            model.updateStorage()
+            //binding.clock = "${p0/1000}"=
+            println("Order: $p0")
+            runBlocking {
+                model.updateStorage()
+            }
 
             if(model.changeFlag.value!!){
                 timerCheckFlag = true
@@ -99,7 +108,7 @@ class OrderFragment : Fragment() {
         for(i in 0 until pizzaList.size){
             productList.add(pizzaList[i])
         }
-        println(productList.size)
+
         adapter = ProductAdapter(this.requireContext(), productList)
         adapter.setHasStableIds(true)
         binding.list.adapter = adapter
@@ -117,6 +126,7 @@ class OrderFragment : Fragment() {
             override fun onChanged() {
                 super.onChanged()
                 sumProducts()
+
 
                 if(noOrderFlag){
                     model.firstOrder()
@@ -138,7 +148,6 @@ class OrderFragment : Fragment() {
 
             for(i in 0 until pizzaList.size){
                 productList.add(pizzaList[i])
-                print(productList.size)
             }
             adapter.notifyDataSetChanged()
 
@@ -223,7 +232,8 @@ class OrderFragment : Fragment() {
         }
 
         binding.LogoImage.setOnClickListener {
-
+            timer.cancel()
+            view.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToAdminFragment())
         }
 
         timer.start()

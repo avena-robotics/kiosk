@@ -15,12 +15,15 @@ class SumListAdapter(val context: Context, val products: MutableList<Storage>): 
             when(LangStorage(context).getPreferredLocale()) {
                 "pl" -> {
                     binding.mainText.text = item.name_pl
+                    binding.secondText.text = item.ingredients_pl
                 }
                 "en" -> {
                     binding.mainText.text = item.name_en
+                    binding.secondText.text = item.ingredients_en
                 }
                 else -> {
                     binding.mainText.text = item.name_en
+                    binding.secondText.text = item.ingredients_en
                 }
             }
 

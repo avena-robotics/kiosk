@@ -139,6 +139,8 @@
             android:fontFamily="@font/glory_medium"
             android:textSize="26sp"
             android:textAlignment="center"
+
+            android:padding="0dp"
             app:cornerRadius="40dp"
             app:strokeColor="@color/munchies_blue"
 

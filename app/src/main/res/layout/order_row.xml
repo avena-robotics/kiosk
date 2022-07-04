@@ -52,25 +52,25 @@
 
         <TextView
             android:id="@+id/sideText"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_width="340dp"
+            android:layout_height="40dp"
             android:layout_marginStart="10dp"
             android:text="Pieczarki, Kurczak, Ser"
 
             android:fontFamily="@font/glory_light"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
 
             app:layout_constraintStart_toEndOf="@+id/Image"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <TextView
             android:id="@+id/price"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="31dp"
-            android:layout_marginEnd="20dp"
-            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
             android:text="@{@string/price(productPrice)}"
             android:textSize="16sp"
             android:fontFamily="@font/glory_medium"

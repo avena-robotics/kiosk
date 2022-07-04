@@ -66,12 +66,15 @@ class ProductAdapter(val context: Context, val products: MutableList<Storage>): 
             when(LangStorage(context).getPreferredLocale()) {
                 "pl" -> {
                     binding.name.text = products[position].name_pl
+                    binding.sideText.text = products[position].ingredients_pl
                 }
                 "en" -> {
                     binding.name.text = products[position].name_en
+                    binding.sideText.text = products[position].ingredients_en
                 }
                 else -> {
                     binding.name.text = products[position].name_en
+                    binding.sideText.text = products[position].ingredients_en
                 }
             }
 
