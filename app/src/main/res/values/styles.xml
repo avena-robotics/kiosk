@@ -8,7 +8,7 @@
     </style>
 
     <style name="ShapeAppearance.App.CornerSize10Percent" parent="">
-        <item name="cornerSize">10%</item>
+        <item name="cornerSize">20%</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.App.Button.Circle" parent="">

@@ -55,12 +55,14 @@ class OrderFragment : Fragment() {
         override fun onTick(p0: Long) {
             //binding.clock = "${p0/1000}"=
             println("Order: $p0")
+            var flag: Boolean
             runBlocking {
-                model.updateStorage()
+                flag = model.updateStorage()
             }
 
-            if(model.changeFlag.value!!){
+            if(flag){
                 timerCheckFlag = true
+                println("on tick notify")
                 adapter.notifyDataSetChanged()
                 timerCheckFlag = false
             }
@@ -135,7 +137,9 @@ class OrderFragment : Fragment() {
                     model.orderChange(0)
                 }
 
+                println("data change observer cancel")
                 timer.cancel()
+                println("data change observer start")
                 timer.start()
             }
         })
@@ -149,9 +153,12 @@ class OrderFragment : Fragment() {
             for(i in 0 until pizzaList.size){
                 productList.add(pizzaList[i])
             }
+            println("pizza button notify")
             adapter.notifyDataSetChanged()
 
+            println("pizza button cancel")
             timer.cancel()
+            println("pizza button start")
             timer.start()
         }
 
@@ -164,9 +171,12 @@ class OrderFragment : Fragment() {
             for(i in 0 until drinkList.size){
                 productList.add(drinkList[i])
             }
+            println("drinks button notify")
             adapter.notifyDataSetChanged()
 
+            println("drinks button cancel")
             timer.cancel()
+            println("drinks button start")
             timer.start()
         }
 
@@ -179,9 +189,12 @@ class OrderFragment : Fragment() {
             for(i in 0 until sosList.size){
                 productList.add(sosList[i])
             }
+            println("soses button notify")
             adapter.notifyDataSetChanged()
 
+            println("sos button cancel")
             timer.cancel()
+            println("sos button start")
             timer.start()
         }
 
@@ -194,9 +207,12 @@ class OrderFragment : Fragment() {
             for(i in 0 until boxList.size){
                 productList.add(boxList[i])
             }
+            println("boxes button notify")
             adapter.notifyDataSetChanged()
 
+            println("box button cancel")
             timer.cancel()
+            println("box button start")
             timer.start()
         }
 
@@ -207,12 +223,14 @@ class OrderFragment : Fragment() {
                 model.resetProducts()
             }
 
+            println("cancel button cancel")
             timer.cancel()
             binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
         }
 
         binding.submitButton.setOnClickListener {
             if(!noOrderFlag && binding.productTotal >0){
+                println("submit button cancel")
                 timer.cancel()
                 model.total.value = binding.productTotal
                 binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToPaymentFragment())
@@ -232,10 +250,12 @@ class OrderFragment : Fragment() {
         }
 
         binding.LogoImage.setOnClickListener {
+            println("logo buton cancel")
             timer.cancel()
             view.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToAdminFragment())
         }
 
+        println("start")
         timer.start()
     }
 

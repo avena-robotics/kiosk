@@ -1,9 +1,11 @@
 package com.example.kioskv2.adapter
 
 import android.content.Context
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kioskv2.data.DataBase
 import com.example.kioskv2.databinding.OrderRowBinding
@@ -79,6 +81,12 @@ class ProductAdapter(val context: Context, val products: MutableList<Storage>): 
             }
 
             binding.Image.setImageBitmap(products[position].image)
+            if(products[position].type == 1){
+                binding.Image.scaleType = ImageView.ScaleType.FIT_XY
+            }else {
+                binding.Image.scaleType = ImageView.ScaleType.FIT_CENTER
+            }
+
             binding.productNumber = products[position].number
             binding.productPrice = products[position].price
             binding.productSum = binding.productNumber * binding.productPrice
