@@ -1,5 +1,6 @@
 package com.example.kioskv2.fragments
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import com.example.kioskv2.viewmodels.SharedViewModel
 
 class StartFragment : Fragment(), View.OnClickListener {
     lateinit var binding: FragmentStartBinding
+    lateinit var robotAnimation: AnimationDrawable
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,11 +46,17 @@ class StartFragment : Fragment(), View.OnClickListener {
             }
         }
 
+        binding.character.apply {
+            setBackgroundResource(R.drawable.robot_animation)
+            robotAnimation = background as AnimationDrawable
+        }
+
         binding.background.setOnClickListener(this)
         binding.character.setOnClickListener(this)
         binding.icon.setOnClickListener(this)
         binding.infoButton.setOnClickListener(this)
         binding.logo.setOnClickListener(this)
+        robotAnimation.start()
     }
 
     override fun onClick(v: View?) {

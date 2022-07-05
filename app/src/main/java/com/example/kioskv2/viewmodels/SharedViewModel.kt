@@ -21,7 +21,6 @@ class SharedViewModel: ViewModel() {
         0 ,0))
     val total: MutableLiveData<Float> = MutableLiveData()
     val nameGenFlag: MutableLiveData<Boolean> = MutableLiveData()
-    val changeFlag: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var flag = 0
     val database = DataBase()
@@ -105,20 +104,25 @@ class SharedViewModel: ViewModel() {
         println("post res current id ${currentId.value}")
     }
 
-    fun updateStorage(){
-        viewModelScope.launch(Dispatchers.IO){
-            val temp = database.updateStorage()
-            var flagStorChange = false
-            withContext(Dispatchers.Main){
-                for(i in 0 until temp.size){
-                    if(products.value!![i].quantity != temp[i]){
-                        products.value!![i].quantity  = temp[i] + products.value!![i].number
-                        flagStorChange = true
+    fun updateStorage(): Boolean{
+
+        var flagStorChange = false
+        runBlocking {
+            viewModelScope.launch(Dispatchers.IO){
+                val temp = database.updateStorage()
+                withContext(Dispatchers.Main){
+                    for(i in 0 until temp.size){
+                        //println("temp: ${temp[i]}, products.value: ${products.value!![i].quantity}")
+                        if(products.value!![i].quantity != temp[i]){
+                            //println("change on: $i")
+                            products.value!![i].quantity  = temp[i] + products.value!![i].number
+                            flagStorChange = true
+                        }
                     }
                 }
-                changeFlag.value = flagStorChange
             }
         }
+        return flagStorChange
     }
 
     fun setClientName(){
