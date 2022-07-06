@@ -38,12 +38,12 @@ class DataBase {
 
         try{
             stmt = connection!!.createStatement()
-            resultset = stmt!!.executeQuery("SELECT name_en, quantity FROM storage_state ORDER BY type, seq;")
+            resultset = stmt!!.executeQuery("SELECT order_name, quantity FROM storage_state ORDER BY type, seq;")
             resultset2 = stmt!!.executeQuery("SELECT * FROM orders WHERE status not in (4,5)")
 
             while(resultset!!.next()){
                 output.add(resultset.getInt("quantity"))
-                productsInfo[resultset.getString("name_en")] = 0
+                productsInfo[resultset.getString("order_name")] = 0
             }
 
             while(resultset2!!.next()){
@@ -106,12 +106,12 @@ class DataBase {
 
         try{
             stmt = connection!!.createStatement()
-            resultset = stmt!!.executeQuery("SELECT name_en, quantity FROM storage_state WHERE type = $type ORDER BY type, seq;")
+            resultset = stmt!!.executeQuery("SELECT order_name, quantity FROM storage_state WHERE type = $type ORDER BY type, seq;")
             resultset2 = stmt!!.executeQuery("SELECT * FROM orders WHERE status not in (4,5)")
 
             while(resultset!!.next()){
                 output.add(resultset.getInt("quantity"))
-                productsInfo[resultset.getString("name_en")] = 0
+                productsInfo[resultset.getString("order_name")] = 0
             }
 
             while(resultset2!!.next()){
@@ -156,8 +156,8 @@ class DataBase {
     }
 
 
-    private fun addProduct(name_en: String, name_pl: String, ingredients_en: String, ingredients_pl: String, price: Float, quantity: Int, type: Int, image: Bitmap){
-        val record = Storage(name_en, name_pl, ingredients_en, ingredients_pl, price, quantity, type, image)
+    private fun addProduct(order_name: String, name_en: String, name_pl: String, ingredients_en: String, ingredients_pl: String, price: Float, quantity: Int, type: Int, image: Bitmap){
+        val record = Storage(order_name, name_en, name_pl, ingredients_en, ingredients_pl, price, quantity, type, image)
         products.add(record)
     }
 
@@ -183,7 +183,7 @@ class DataBase {
                 blob = resultset.getBlob("image")
                 val blobLength: Int = blob.length().toInt()
                 val blobArray = blob.getBytes(1, blobLength)
-                addProduct(resultset.getString("name_en"), resultset.getString("name_pl"),  resultset.getString("ingredients_en"),  resultset.getString("ingredients_pl"), resultset.getFloat("price"), resultset.getInt("quantity"), resultset.getInt("type"), BitmapFactory.decodeByteArray(blobArray, 0, blobArray.size)
+                addProduct(resultset.getString("order_name"), resultset.getString("name_en"), resultset.getString("name_pl"),  resultset.getString("ingredients_en"),  resultset.getString("ingredients_pl"), resultset.getFloat("price"), resultset.getInt("quantity"), resultset.getInt("type"), BitmapFactory.decodeByteArray(blobArray, 0, blobArray.size)
                 )
             }
         } catch (ex: SQLException){

@@ -28,18 +28,14 @@ class PaymentFragment : Fragment() {
     lateinit var binding: FragmentPaymentBinding
     lateinit var model: SharedViewModel
     val dataBase = DataBase()
-    var timerFlag = 0
 
     val timer = object: CountDownTimer(240000, 1000){ //60000
         override fun onTick(p0: Long) {
-            println("Payment $p0")
+            //println("Payment $p0")
         }
 
         override fun onFinish() {
             model.cancelOrder()
-            timerFlag = 1
-
-            timerFlag = 0
             println("Nav: Payment to start timer")
             try {
                 binding.root.findNavController()
@@ -88,6 +84,7 @@ class PaymentFragment : Fragment() {
         binding.list.adapter = SumListAdapter(requireContext(), products)
 
         binding.paymentButton.setOnClickListener {
+            timer.cancel()
             model.setClientName()
 
             binding.cancelOrderButton.visibility = View.INVISIBLE
@@ -110,15 +107,25 @@ class PaymentFragment : Fragment() {
 
         binding.plFlagButton.setOnClickListener {
             if(LangStorage(requireContext()).getPreferredLocale() != "pl"){
+                timer.cancel()
                 (activity as MainActivity).updateAppLocale("pl")
+            }else{
+                timer.cancel()
+                timer.start()
             }
         }
 
         binding.enFlagButton.setOnClickListener {
             if(LangStorage(requireContext()).getPreferredLocale() != "en"){
+                timer.cancel()
                 (activity as MainActivity).updateAppLocale("en")
+            }else{
+                timer.cancel()
+                timer.start()
             }
         }
+
+        timer.start()
     }
 
     fun generateNewName(): String{
@@ -127,7 +134,6 @@ class PaymentFragment : Fragment() {
         runBlocking {
             launch(Dispatchers.IO){
                 last_name = dataBase.getLastName()
-                println(last_name)
             }
         }
 
