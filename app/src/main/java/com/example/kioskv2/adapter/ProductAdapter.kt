@@ -36,7 +36,6 @@ class ProductAdapter(val context: Context, val products: MutableList<Storage>): 
                         binding.productSum = binding.productPrice * binding.productNumber
                         binding.downButton.visibility = View.VISIBLE
 
-                        println("position: $pos")
                         notifyDataSetChanged()
                     }
                 }
@@ -81,10 +80,18 @@ class ProductAdapter(val context: Context, val products: MutableList<Storage>): 
             }
 
             binding.Image.setImageBitmap(products[position].image)
-            if(products[position].type == 1){
-                binding.Image.scaleType = ImageView.ScaleType.FIT_XY
-            }else {
-                binding.Image.scaleType = ImageView.ScaleType.FIT_CENTER
+
+            when (products[position].type) {
+                1 -> {
+                    binding.Image.scaleType = ImageView.ScaleType.FIT_XY
+                }
+                2 -> {
+                    binding.Image.scaleType = ImageView.ScaleType.FIT_CENTER
+                    binding.Image.setContentPadding(0,5,0,5)
+                }
+                else -> {
+                    binding.Image.scaleType = ImageView.ScaleType.FIT_CENTER
+                }
             }
 
             binding.productNumber = products[position].number
@@ -97,6 +104,7 @@ class ProductAdapter(val context: Context, val products: MutableList<Storage>): 
                 binding.sum.visibility = View.INVISIBLE
             }
 
+            //println("number ${products[position].number}, quantity ${products[position].quantity}, position $position, type ${products[position].type}")
             if(products[position].number <= 0){
                 binding.downButton.visibility = View.INVISIBLE
             }
@@ -104,7 +112,7 @@ class ProductAdapter(val context: Context, val products: MutableList<Storage>): 
             if(products[position].number >= products[position].quantity || products[position].number >= 9 || products[position].quantity <=0){
                 binding.upButton.visibility = View.INVISIBLE
             }else{
-                binding.downButton.visibility = View.VISIBLE
+                binding.upButton.visibility = View.VISIBLE
             }
 
             if(products[position].number > 0){

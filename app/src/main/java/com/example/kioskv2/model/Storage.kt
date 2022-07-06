@@ -3,6 +3,7 @@ package com.example.kioskv2.model
 import android.graphics.Bitmap
 
 data class Storage(
+    val order_name: String,
     val name_en: String,
     val name_pl: String,
     val ingredients_en: String,

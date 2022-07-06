@@ -33,6 +33,9 @@ class SharedViewModel: ViewModel() {
                 withContext(Dispatchers.Main){
                     products.value = temp
                 }
+                products.value!!.forEach {
+                    println("name: ${it.name_en}, order Name: ${it.order_name}")
+                }
             }
             clientName.value = ""
         }
@@ -43,7 +46,6 @@ class SharedViewModel: ViewModel() {
             launch(Dispatchers.IO) {
                 updateOrder()
                 order.value?.status = 5
-                println("in current id ${currentId.value}")
                 database.updateOrder(order.value!! ,currentId.value!!)
             }
         }
@@ -70,7 +72,7 @@ class SharedViewModel: ViewModel() {
 
     fun updateOrder(){
         products.value?.forEach{
-            when(it.name_en){
+            when(it.order_name){
                 "product_1" -> order.value?.product_1 = it.number;
                 "product_2" -> order.value?.product_2 = it.number
                 "product_3" -> order.value?.product_3 = it.number
@@ -95,13 +97,11 @@ class SharedViewModel: ViewModel() {
     }
 
     fun resetProducts(){
-        println("pre res current id ${currentId.value}")
         products.value?.forEach{
             it.number = 0
         }
         currentId.value = 0
         clientName.value = ""
-        println("post res current id ${currentId.value}")
     }
 
     fun updateStorage(): Boolean{

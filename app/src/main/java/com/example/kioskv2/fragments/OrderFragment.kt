@@ -1,5 +1,6 @@
 package com.example.kioskv2.fragments
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -29,6 +30,7 @@ class OrderFragment : Fragment() {
     lateinit var adapter: ProductAdapter
     lateinit var model: SharedViewModel
     lateinit var products: LiveData<MutableList<Storage>>
+    lateinit var robotAnimation: AnimationDrawable
 
     var total: Float = 0.0F
 
@@ -43,7 +45,6 @@ class OrderFragment : Fragment() {
                 model.resetProducts()
             }
 
-            println("Nav: Payment: Order to start timer")
             try{
                 binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
             }catch (e: Exception){
@@ -53,7 +54,6 @@ class OrderFragment : Fragment() {
         }
 
         override fun onTick(p0: Long) {
-            //binding.clock = "${p0/1000}"=
             println("Order: $p0")
             var flag: Boolean
             runBlocking {
@@ -62,7 +62,6 @@ class OrderFragment : Fragment() {
 
             if(flag){
                 timerCheckFlag = true
-                println("on tick notify")
                 adapter.notifyDataSetChanged()
                 timerCheckFlag = false
             }
@@ -87,7 +86,6 @@ class OrderFragment : Fragment() {
         noOrderFlag = model.currentId.value == 0
         sumProducts()
 
-        //przenieść do model
         val pizzaList: MutableList<Storage> = mutableListOf()
         val drinkList: MutableList<Storage> = mutableListOf()
         val sosList: MutableList<Storage> = mutableListOf()
@@ -104,7 +102,6 @@ class OrderFragment : Fragment() {
         }
 
         val productList:MutableList<Storage> = mutableListOf()
-
         buttonChange(1)
 
         for(i in 0 until pizzaList.size){
@@ -129,7 +126,6 @@ class OrderFragment : Fragment() {
                 super.onChanged()
                 sumProducts()
 
-
                 if(noOrderFlag){
                     model.firstOrder()
                     noOrderFlag = false
@@ -137,12 +133,15 @@ class OrderFragment : Fragment() {
                     model.orderChange(0)
                 }
 
-                println("data change observer cancel")
                 timer.cancel()
-                println("data change observer start")
                 timer.start()
             }
         })
+
+        binding.robotImage.apply {
+            setBackgroundResource(R.drawable.robot2_animation)
+            robotAnimation = background as AnimationDrawable
+        }
 
         binding.buttonPizza.setOnClickListener{
             buttonChange(1)
@@ -153,12 +152,9 @@ class OrderFragment : Fragment() {
             for(i in 0 until pizzaList.size){
                 productList.add(pizzaList[i])
             }
-            println("pizza button notify")
             adapter.notifyDataSetChanged()
 
-            println("pizza button cancel")
             timer.cancel()
-            println("pizza button start")
             timer.start()
         }
 
@@ -171,12 +167,9 @@ class OrderFragment : Fragment() {
             for(i in 0 until drinkList.size){
                 productList.add(drinkList[i])
             }
-            println("drinks button notify")
             adapter.notifyDataSetChanged()
 
-            println("drinks button cancel")
             timer.cancel()
-            println("drinks button start")
             timer.start()
         }
 
@@ -189,12 +182,9 @@ class OrderFragment : Fragment() {
             for(i in 0 until sosList.size){
                 productList.add(sosList[i])
             }
-            println("soses button notify")
             adapter.notifyDataSetChanged()
 
-            println("sos button cancel")
             timer.cancel()
-            println("sos button start")
             timer.start()
         }
 
@@ -207,12 +197,9 @@ class OrderFragment : Fragment() {
             for(i in 0 until boxList.size){
                 productList.add(boxList[i])
             }
-            println("boxes button notify")
             adapter.notifyDataSetChanged()
 
-            println("box button cancel")
             timer.cancel()
-            println("box button start")
             timer.start()
         }
 
@@ -223,14 +210,12 @@ class OrderFragment : Fragment() {
                 model.resetProducts()
             }
 
-            println("cancel button cancel")
             timer.cancel()
             binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToStartFragment())
         }
 
         binding.submitButton.setOnClickListener {
             if(!noOrderFlag && binding.productTotal >0){
-                println("submit button cancel")
                 timer.cancel()
                 model.total.value = binding.productTotal
                 binding.root.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToPaymentFragment())
@@ -239,24 +224,31 @@ class OrderFragment : Fragment() {
 
         binding.enFlagButton.setOnClickListener {
             if(LangStorage(requireContext()).getPreferredLocale() != "en"){
+                timer.cancel()
                 (activity as MainActivity).updateAppLocale("en")
+            }else{
+                timer.cancel()
+                timer.start()
             }
         }
 
         binding.plFlagButton.setOnClickListener {
             if(LangStorage(requireContext()).getPreferredLocale() != "pl"){
+                timer.cancel()
                 (activity as MainActivity).updateAppLocale("pl")
+            }else{
+                timer.cancel()
+                timer.start()
             }
         }
 
         binding.LogoImage.setOnClickListener {
-            println("logo buton cancel")
             timer.cancel()
             view.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToAdminFragment())
         }
 
-        println("start")
         timer.start()
+        robotAnimation.start()
     }
 
     fun buttonChange(buttonNumber: Int){
