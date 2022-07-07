@@ -37,7 +37,7 @@ class OrderFragment : Fragment() {
     var timerCheckFlag = false
     var noOrderFlag = true
 
-    val timer = object: CountDownTimer( 60000, 1000){ //TO FIX !!!!!!!!!!!!
+    val timer = object: CountDownTimer( 120000, 1000){ //TO FIX !!!!!!!!!!!!
         override fun onFinish() {
             if(!noOrderFlag){
                 model.cancelOrder()
@@ -54,7 +54,7 @@ class OrderFragment : Fragment() {
         }
 
         override fun onTick(p0: Long) {
-            println("Order: $p0")
+            //println("Order: $p0")
             var flag: Boolean
             runBlocking {
                 flag = model.updateStorage()

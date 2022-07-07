@@ -1,17 +1,21 @@
 package com.example.kioskv2.adapter
 
 import android.content.Context
+import android.content.res.Resources
 import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kioskv2.R
 import com.example.kioskv2.data.DataBase
 import com.example.kioskv2.databinding.OrderRowBinding
 import com.example.kioskv2.language.LangStorage
 import com.example.kioskv2.model.Order
 import com.example.kioskv2.model.Storage
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.ShapeAppearanceModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -83,14 +87,20 @@ class ProductAdapter(val context: Context, val products: MutableList<Storage>): 
 
             when (products[position].type) {
                 1 -> {
-                    binding.Image.scaleType = ImageView.ScaleType.FIT_XY
+                    binding.Image.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                    binding.Image.setContentPadding(0, 0, 0, 0)
                 }
                 2 -> {
                     binding.Image.scaleType = ImageView.ScaleType.FIT_CENTER
                     binding.Image.setContentPadding(0,5,0,5)
                 }
+                4 -> {
+                    binding.Image.scaleType = ImageView.ScaleType.FIT_CENTER
+                    binding.Image.setContentPadding(0,5,0,5)
+                }
                 else -> {
                     binding.Image.scaleType = ImageView.ScaleType.FIT_CENTER
+                    binding.Image.setContentPadding(0, 0, 0, 0)
                 }
             }
 

@@ -34,7 +34,7 @@ class TransactionFragment: Fragment() {
 
     val timer = object: CountDownTimer(240000, 1000){ //60000
         override fun onTick(p0: Long) {
-            println("Transaction $p0")
+            //println("Transaction $p0")
         }
 
         override fun onFinish() {
