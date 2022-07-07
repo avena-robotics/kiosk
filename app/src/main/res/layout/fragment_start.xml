@@ -49,6 +49,7 @@
             android:id="@+id/flagButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -58,6 +59,7 @@
                 android:layout_width="80dp"
                 android:layout_height="150dp"
                 android:layout_marginEnd="10dp"
+                android:padding="0dp"
 
                 android:background="@null"
                 android:scaleType="fitStart"
@@ -68,6 +70,7 @@
                 android:id="@+id/enFlagButton"
                 android:layout_width="80dp"
                 android:layout_height="150dp"
+                android:padding="0dp"
 
                 android:background="@null"
                 android:scaleType="fitStart"
