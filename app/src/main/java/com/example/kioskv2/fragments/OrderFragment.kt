@@ -50,7 +50,6 @@ class OrderFragment : Fragment() {
             }catch (e: Exception){
                 e.printStackTrace()
             }
-
         }
 
         override fun onTick(p0: Long) {

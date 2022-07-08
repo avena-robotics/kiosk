@@ -1,5 +1,6 @@
 package com.example.kioskv2.fragments
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ import java.lang.Exception
 class PaymentFragment : Fragment() {
     lateinit var binding: FragmentPaymentBinding
     lateinit var model: SharedViewModel
+    lateinit var logoAnimation: AnimationDrawable
     val dataBase = DataBase()
 
     val timer = object: CountDownTimer(240000, 1000){ //60000
@@ -125,6 +127,12 @@ class PaymentFragment : Fragment() {
             }
         }
 
+        binding.LogoImage.apply {
+            setBackgroundResource(R.drawable.logo_animation)
+            logoAnimation = background as AnimationDrawable
+        }
+
+        logoAnimation.start()
         timer.start()
     }
 
